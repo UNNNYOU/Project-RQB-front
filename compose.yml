@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    command: yarn dev -p 8000
+    ports:
+      - "8000:8000"
