@@ -1,4 +1,4 @@
-import { Footers, Headers } from "@/components/layouts";
+import { Headers } from "@/components/layouts";
 
 export default function MainLayout({ children }) {
   return (
@@ -6,14 +6,7 @@ export default function MainLayout({ children }) {
       <header className="w-full bg-white">
         <Headers />
       </header>
-      <div className="container my-4 flex w-full grow">
-        {children}
-      </div>
-      <div className="w-full bg-[#AAB1BC]">
-        <footer>
-          <Footers />
-        </footer>
-      </div>
+      {children}
     </div>
   );
 }

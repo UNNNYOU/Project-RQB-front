@@ -1,5 +1,6 @@
 export const Routes = {
   home: "/",
+  top: "/top",
   login: "/login",
   questions: "/questions",
   questionsNew: "/questions/new",
