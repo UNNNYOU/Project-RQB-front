@@ -9,4 +9,4 @@ export const Routes = {
   termOfService: "/term-of-service",
   privacyPolicy: "/privacy-policy",
   contact: "/contact",
-}
+};

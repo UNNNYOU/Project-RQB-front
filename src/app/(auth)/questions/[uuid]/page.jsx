@@ -1,4 +1,3 @@
-
 export default function Question({ params: { uuid } }) {
   console.log(uuid);
   return (

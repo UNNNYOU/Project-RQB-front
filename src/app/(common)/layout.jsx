@@ -7,9 +7,7 @@ export default function CommonRoot({ children }) {
     <>
       <div className="container my-4 flex w-full grow">
         <div className="flex w-full">
-          {auth && (
-            <Asides />
-          )}
+          {auth && <Asides />}
           <main className="grow">{children}</main>
         </div>
       </div>

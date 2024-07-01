@@ -1,4 +1,3 @@
-
 export default function User({ params: { uuid } }) {
   console.log(uuid);
   return (

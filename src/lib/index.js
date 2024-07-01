@@ -1,3 +1,3 @@
 import { cn } from "./shadcn/utils";
 
-export { cn }
+export { cn };

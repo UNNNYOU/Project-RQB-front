@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    './src/**/*.{js,jsx}',
-  ],
+  content: ["./src/**/*.{js,jsx}"],
   prefix: "",
   theme: {
     container: {
@@ -17,7 +15,7 @@ module.exports = {
       backgroundColor: {
         "runteq-primary": "#FC7400",
         "runteq-secondary": "#3434D3",
-        "runteq-background": "#F4F9FA"
+        "runteq-background": "#F4F9FA",
       },
       colors: {
         "runteq-primary": "#FC7400",
@@ -78,4 +76,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

@@ -7,10 +7,7 @@
     "eslint:recommended",
     "plugin:tailwindcss/recommended"
   ],
-  "plugins": [
-    "import",
-    "unused-imports"
-  ],
+  "plugins": ["import", "unused-imports"],
   "rules": {
     "unused-imports/no-unused-imports": "error",
     "import/order": [
@@ -25,16 +22,8 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [
-          [
-            "@",
-            "./src"
-          ]
-        ],
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".jsx"]
       }
     }
   }
