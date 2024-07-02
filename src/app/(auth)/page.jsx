@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <article>
-      <h1>ホームページ</h1>
+      <h1>ホーム</h1>
     </article>
   );
 }
