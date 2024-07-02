@@ -1,13 +1,10 @@
 name: Deploy Review App
 on:
-  # Run this workflow on every PR event. Existing review apps will be updated when the PR is updated.
   pull_request:
     types: [opened, reopened, synchronize, closed]
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  # Set these to your Fly.io organization and preferred region.
-  FLY_REGION: iad
   FLY_ORG: runteq-rqb
 
 jobs:
@@ -15,21 +12,29 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
-    # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
-
-    # Deploying apps with this "review" environment allows the URL for the app to be displayed in the PR UI.
-    # Feel free to change the name of this environment.
     environment:
       name: review-${{ github.event.pull_request.number }}
-      # The script in the `deploy` sets the URL output for each review app.
       url: ${{ steps.deploy.outputs.url }}
 
     steps:
       - name: Get code
         uses: actions/checkout@v4
 
+      - name: Generate App Name
+        id: generate_app_name
+        run: echo "APP_NAME=pr-${{ github.event.number }}-${{ github.repository }}-${{ github.event.pull_request.head.ref }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-' > app_name.txt
+
+      - name: Read App Name
+        id: read_app_name
+        run: echo "::set-output name=app_name::$(cat app_name.txt)"
+
       - name: Deploy PR app to Fly.io
         id: deploy
-        uses: superfly/fly-pr-review-apps@1.2.0
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          flyctl launch --no-deploy --copy-config --name $APP_NAME --org $FLY_ORG
+          flyctl deploy --config fly.toml --app $APP_NAME --strategy immediate --vm-cpu-kind shared --vm-cpus 1 --vm-memory 256
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
