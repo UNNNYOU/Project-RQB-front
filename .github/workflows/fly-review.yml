@@ -75,7 +75,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
-              body: `Review App deployed: ${reviewAppUrl}`
+              body: `レビューアプリがデプロイされました: ${reviewAppUrl}`
             });
 
   delete_review_app:
