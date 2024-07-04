@@ -22,6 +22,11 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
 
+      - name: Install flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          export PATH="$HOME/.fly/bin:$PATH"
+
       - name: Generate App Name
         id: generate_app_name
         run: echo "APP_NAME=pr-${{ github.event.number }}-${{ github.repository }}-${{ github.event.pull_request.head.ref }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-' > app_name.txt
