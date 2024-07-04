@@ -1,35 +1,100 @@
-name: Deploy Review App
+name: Manage Review App
 on:
-  # Run this workflow on every PR event. Existing review apps will be updated when the PR is updated.
   pull_request:
     types: [opened, reopened, synchronize, closed]
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  # Set these to your Fly.io organization and preferred region.
-  FLY_REGION: iad
-  FLY_ORG: RUNTEQ-RQB
+  FLY_ORG: runteq-rqb
 
 jobs:
-  review_app:
+  deploy_review_app:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
-    # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
-
-    # Deploying apps with this "review" environment allows the URL for the app to be displayed in the PR UI.
-    # Feel free to change the name of this environment.
     environment:
       name: review-${{ github.event.pull_request.number }}
-      # The script in the `deploy` sets the URL output for each review app.
       url: ${{ steps.deploy.outputs.url }}
 
     steps:
       - name: Get code
         uses: actions/checkout@v4
 
+      - name: Install flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          echo "$HOME/.fly/bin" >> $GITHUB_PATH
+
+      - name: Generate App Name
+        id: generate_app_name
+        run: echo "pr-${{ github.event.number }}-front" > app_name.txt
+
+      - name: Read App Name
+        id: read_app_name
+        run: echo "::set-output name=app_name::$(cat app_name.txt)"
+
+      - name: Check if app exists
+        id: check_app_exists
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          if flyctl apps list | grep -q $APP_NAME; then
+            echo "app_exists=true" >> $GITHUB_ENV
+          else
+            echo "app_exists=false" >> $GITHUB_ENV
+          fi
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Create PR app on Fly.io
+        if: env.app_exists == 'false'
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          flyctl launch --no-deploy --copy-config --name $APP_NAME --org $FLY_ORG
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - name: Deploy PR app to Fly.io
-        id: deploy
-        uses: superfly/fly-pr-review-apps@1.2.0
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          flyctl deploy --config fly.toml --app $APP_NAME --strategy immediate --vm-cpu-kind shared --vm-cpus 1 --vm-memory 256
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Post Review App URL as comment
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const reviewAppUrl = 'https://' + '${{ steps.read_app_name.outputs.app_name }}' + '.fly.dev';
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `レビューアプリがデプロイされました: ${reviewAppUrl}`
+            });
+
+  delete_review_app:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          echo "$HOME/.fly/bin" >> $GITHUB_PATH
+
+      - name: Generate App Name
+        id: generate_app_name
+        run: echo "pr-${{ github.event.number }}-front" > app_name.txt
+
+      - name: Delete PR app from Fly.io
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          flyctl apps destroy $APP_NAME --yes
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
