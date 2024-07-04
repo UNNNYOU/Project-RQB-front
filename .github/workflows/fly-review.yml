@@ -25,7 +25,7 @@ jobs:
       - name: Install flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
-          export PATH="$HOME/.fly/bin:$PATH"
+          echo "$HOME/.fly/bin" >> $GITHUB_PATH
 
       - name: Generate App Name
         id: generate_app_name
