@@ -1,4 +1,4 @@
-name: Deploy Review App
+name: Manage Review App
 on:
   pull_request:
     types: [opened, reopened, synchronize, closed]
@@ -8,7 +8,8 @@ env:
   FLY_ORG: runteq-rqb
 
 jobs:
-  review_app:
+  deploy_review_app:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
@@ -52,7 +53,7 @@ jobs:
           script: |
             const prNumber = context.payload.pull_request.number;
             const reviewAppUrl = 'https://' + '${{ steps.read_app_name.outputs.app_name }}' + '.fly.dev';
-            github.issues.createComment({
+            github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
