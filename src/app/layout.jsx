@@ -1,3 +1,4 @@
+import { MainProvider } from "./mainProvider";
 import { MainLayout } from "@/components/layouts";
 import "./globals.css";
 
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body>
-        <MainLayout>{children}</MainLayout>
+        <MainProvider>
+          <MainLayout>{children}</MainLayout>
+        </MainProvider>
       </body>
     </html>
   );
