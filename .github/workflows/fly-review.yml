@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate App Name
         id: generate_app_name
-        run: echo "APP_NAME=pr-${{ github.event.number }}-${{ github.repository }}-${{ github.event.pull_request.head.ref }}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9-' '-' > app_name.txt
+        run: echo "APP_NAME=pr-${{ github.event.number }}" | tr '[:upper:]' '[:lower:]' | tr -c '[:alnum:]-' '-' > app_name.txt
 
       - name: Read App Name
         id: read_app_name
