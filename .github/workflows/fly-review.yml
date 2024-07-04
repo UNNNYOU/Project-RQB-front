@@ -1,7 +1,11 @@
 name: Manage Review App
+
 on:
   pull_request:
     types: [opened, reopened, synchronize, closed]
+  push:
+    branches:
+      - main
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -9,7 +13,7 @@ env:
 
 jobs:
   deploy_review_app:
-    if: github.event.action != 'closed'
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
@@ -79,7 +83,7 @@ jobs:
             });
 
   delete_review_app:
-    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Install flyctl
@@ -90,6 +94,28 @@ jobs:
       - name: Generate App Name
         id: generate_app_name
         run: echo "pr-${{ github.event.number }}-front" > app_name.txt
+
+      - name: Delete PR app from Fly.io
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          flyctl apps destroy $APP_NAME --yes
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  delete_merged_review_app:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          echo "$HOME/.fly/bin" >> $GITHUB_PATH
+
+      - name: Generate App Name
+        id: generate_app_name
+        run: |
+          pr_number=$(echo ${{ github.ref }} | grep -o 'pr-[0-9]*' | cut -d'-' -f2)
+          echo "pr-${pr_number}-front" > app_name.txt
 
       - name: Delete PR app from Fly.io
         run: |
