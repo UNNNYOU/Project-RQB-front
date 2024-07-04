@@ -36,11 +36,29 @@ jobs:
         id: read_app_name
         run: echo "::set-output name=app_name::$(cat app_name.txt)"
 
-      - name: Deploy PR app to Fly.io
-        id: deploy
+      - name: Check if app exists
+        id: check_app_exists
+        run: |
+          APP_NAME=$(cat app_name.txt)
+          if flyctl apps list | grep -q $APP_NAME; then
+            echo "app_exists=true" >> $GITHUB_ENV
+          else
+            echo "app_exists=false" >> $GITHUB_ENV
+          fi
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Create PR app on Fly.io
+        if: env.app_exists == 'false'
         run: |
           APP_NAME=$(cat app_name.txt)
           flyctl launch --no-deploy --copy-config --name $APP_NAME --org $FLY_ORG
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Deploy PR app to Fly.io
+        run: |
+          APP_NAME=$(cat app_name.txt)
           flyctl deploy --config fly.toml --app $APP_NAME --strategy immediate --vm-cpu-kind shared --vm-cpus 1 --vm-memory 256
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
