@@ -3,6 +3,7 @@
 1. `git clone`
 1. `.env.local`をルートに作成
 1. `docker compose build`
+1. `docker compose run --rm web yarn install` 
 1. `docker compose up`
 
 ## コンテナの入り方
