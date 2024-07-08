@@ -1,3 +1,5 @@
+const icons = require("rocketicons/tailwind");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -75,5 +77,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  components: {
+    sizes: {
+      base: "size-5",
+    },
+  },
+  plugins: [require("tailwindcss-animate"), icons],
 };
