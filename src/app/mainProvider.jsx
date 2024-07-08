@@ -1,7 +1,7 @@
 "use client";
 
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot } from "recoil";
 
 export const MainProvider = ({ children }) => {
-  return (<RecoilRoot>{children}</RecoilRoot>)
-}
+  return <RecoilRoot>{children}</RecoilRoot>;
+};

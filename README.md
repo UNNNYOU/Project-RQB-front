@@ -48,5 +48,6 @@ $ yarn format
 
 - [tailwind CSS](https://tailwindcss.com/)
 - [shadcn/ui Components](https://ui.shadcn.com/docs/components/accordion)
+- [rocketicons](https://rocketicons.io)
 - [SWR](https://swr.vercel.app/ja)
 - [Recoil](https://recoiljs.org/)
