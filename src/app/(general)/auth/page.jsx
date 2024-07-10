@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
 export default function Auth() {
   const searchParams = useSearchParams();
@@ -13,8 +13,10 @@ export default function Auth() {
   }, [searchParams]);
 
   return (
-    <article>
-      <h1>仮の認証ページ</h1>
-    </article>
+    <Suspense>
+      <article>
+        <h1>仮の認証ページ</h1>
+      </article>
+    </Suspense>
   );
 }
