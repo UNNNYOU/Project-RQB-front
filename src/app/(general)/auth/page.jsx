@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, Suspense } from "react";
 
-export default function Auth() {
+function SetAccessToken() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -12,11 +12,17 @@ export default function Auth() {
     }
   }, [searchParams]);
 
+  return null;
+}
+
+export default function Auth() {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <SetAccessToken />
       <article>
         <h1>仮の認証ページ</h1>
       </article>
     </Suspense>
   );
 }
+
