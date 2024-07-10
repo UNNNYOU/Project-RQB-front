@@ -1,15 +1,14 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+"use client";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Auth() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams.get('token');
+    const token = searchParams.get("token");
     if (token) {
-      localStorage.setItem('access_token', token);
+      localStorage.setItem("access_token", token);
     }
   }, [searchParams]);
 
