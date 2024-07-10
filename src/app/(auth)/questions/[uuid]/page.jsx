@@ -17,6 +17,7 @@ const dummyQuestion = {
 const dummyUser = {
   id: 1,
   name: "質問者の名前",
+  userIcon: "質問者",
 };
 
 const dummyComments = [
@@ -88,29 +89,36 @@ const QuestionDetail = ({
     <article>
       <div className="container mx-auto p-4">
         <div className="bg-white shadow-md rounded-lg p-4">
-          <h1 className="text-2xl font-bold mb-4">{question.title}</h1>
-          <div className="flex flex-wrap border-b border-gray-300 pb-4 mb-4">
-            <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0 ml-4">
-              質問者: {question.authorName}
-            </p>
-            <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0 ml-4">
-              質問日時: {new Date(question.createdAt).toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0 ml-4">
-              更新日時: {new Date(question.updatedAt).toLocaleString()}
-            </p>
+          <div className="flex mb-4">
+            <div className="w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center">
+              <span className="text-gray-600 text-xs">{dummyUser.userIcon}</span>
+            </div>
+            <div className="flex flex-col ml-4">
+              <h1 className="text-2xl font-bold mt-4">{question.title}</h1>
+              <div className="flex flex-wrap border-b border-gray-300 pb-4 mb-4 mt-8">
+                <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0">
+                  質問者: {question.authorName}
+                </p>
+                <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0 ml-4">
+                  質問日時: {new Date(question.createdAt).toLocaleString()}
+                </p>
+                <p className="text-sm text-gray-600 flex-grow-0 flex-shrink-0 ml-4">
+                  更新日時: {new Date(question.updatedAt).toLocaleString()}
+                </p>
+              </div>
+              <div className="mb-4">
+                {question.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p className="mb-4">{question.content}</p>
+            </div>
           </div>
-          <div className="mb-4">
-            {question.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <p className="mb-4">{question.content}</p>
         </div>
       </div>
       {comments.map((comment) => (
