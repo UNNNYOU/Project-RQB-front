@@ -26,7 +26,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function QuestionList(url) {
   const { data } = useSWR(url, fetcher, { fallbackData: Data });
 
-  if (!data) return <div>loading...</div>
+  if (!data) return <div>loading...</div>;
 
   return (
     <>

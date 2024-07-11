@@ -10,7 +10,7 @@ export default function Pagination(currentPage, totalPage) {
       query.set("page", page);
     }
     router.push(Routes.questions + "?" + query.toString());
-  }
+  };
 
   return (
     <article className="flex w-full items-center justify-center md:my-8 md:justify-start">
