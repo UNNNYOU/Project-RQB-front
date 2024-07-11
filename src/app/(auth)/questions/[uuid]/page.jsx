@@ -212,9 +212,9 @@ const QuestionDetail = ({ question, user, comments }) => {
           ></textarea>
           <button
             onClick={handleAnswerSubmit}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
+            className="bg-orange-500 hover:bg-[#D66200] text-white px-4 py-2 rounded-lg mt-2"
           >
-            送信
+            送信する
           </button>
           {user.id === question.authorId && !isResolved && (
             <button
