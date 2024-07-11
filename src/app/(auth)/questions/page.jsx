@@ -1,8 +1,9 @@
 "use client";
 
+import { Settings } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { Routes } from "@/config";
 import { Pagination, QuestionList } from "@/features/questions/components";
 
@@ -12,22 +13,26 @@ const OrderBy = {
 };
 
 const QuestionsPage = () => {
-  const [orderBy, setOrderBy] = useState(OrderBy.NEW);
   const params = useSearchParams();
   const router = useRouter();
-
-  useEffect(() => {
-    setOrderBy(params.get("order") ? OrderBy.OLD : OrderBy.NEW);
-  }, [params]);
+  const page = params.get("page") || 1;
+  const nextParams = new URLSearchParams(params);
+  nextParams.set("page", Number(page) + 1);
 
   const handleOrderBy = (e) => {
     const query = new URLSearchParams(params);
+
     if (e.target.value === OrderBy.NEW) {
       query.delete("order");
     } else {
       query.set("order", OrderBy.OLD);
     }
-    router.push(Routes.questions + "?" + query.toString());
+
+    if (query.has("page")) {
+      query.delete("page");
+    }
+
+    router.push(`${Routes.questions}?${query.toString()}`);
   };
 
   return (
@@ -55,7 +60,7 @@ const QuestionsPage = () => {
                   type="radio"
                   name="order"
                   className="hidden"
-                  checked={orderBy === OrderBy.NEW ? true : false}
+                  checked={params.get("order") ? false : true}
                   onChange={handleOrderBy}
                   value={OrderBy.NEW}
                 />
@@ -66,7 +71,7 @@ const QuestionsPage = () => {
                   type="radio"
                   name="order"
                   className="hidden"
-                  checked={orderBy === OrderBy.OLD ? true : false}
+                  checked={params.get("order") === OrderBy.OLD ? true : false}
                   onChange={handleOrderBy}
                   value={OrderBy.OLD}
                 />
@@ -76,13 +81,13 @@ const QuestionsPage = () => {
           </div>
         </div>
 
-        <QuestionList />
+        <QuestionList url={`${Settings.API_URL}?${params.toString()}`} />
       </article>
 
       <Pagination />
 
       <div className="hidden">
-        <QuestionList />
+        <QuestionList url={`${Settings.API_URL}?${nextParams.toString()}`} />
       </div>
     </>
   );
