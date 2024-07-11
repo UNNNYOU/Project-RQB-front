@@ -1,3 +1,4 @@
+import Pagination from "./pagination";
 import QuestionList from "./questionList";
 
-export { QuestionList };
+export { Pagination, QuestionList };

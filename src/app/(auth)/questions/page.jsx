@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { Routes } from "@/config";
-import { QuestionList } from "@/features/questions/components";
+import { Pagination, QuestionList } from "@/features/questions/components";
 
 const OrderBy = {
   NEW: "new",
@@ -78,52 +78,12 @@ const QuestionsPage = () => {
 
         <QuestionList />
       </article>
-      <article className="flex w-full items-center justify-center md:my-8 md:justify-start">
-        <section className="text-sm text-runteq-secondary">
-          <span className="rounded-l border border-runteq-secondary bg-runteq-secondary px-3 py-2 text-white">
-            1
-          </span>
-          <Link
-            href="#"
-            className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            2
-          </Link>
-          <Link
-            href="#"
-            className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            3
-          </Link>
-          <Link
-            href="#"
-            className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            4
-          </Link>
-          <Link
-            href="#"
-            className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            5
-          </Link>
-          <span className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600 ">
-            ...
-          </span>
-          <Link
-            href="#"
-            className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            次へ
-          </Link>
-          <Link
-            href="#"
-            className="rounded-r border border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-          >
-            最後
-          </Link>
-        </section>
-      </article>
+
+      <Pagination />
+
+      <div className="hidden">
+        <QuestionList />
+      </div>
     </>
   );
 };
