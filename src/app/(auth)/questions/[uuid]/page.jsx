@@ -48,19 +48,32 @@ const dummyComments = [
     updatedAt: new Date().toISOString(),
     bodyText: "これは回答者2のダミーのコメントです。",
   },
-  {
-    id: 4,
-    authorName: "質問者の名前",
-    authorId: 1,
-    updatedAt: new Date().toISOString(),
-    bodyText: "これは質問者の再返信です。",
-  },
+  // {
+  //   id: 4,
+  //   authorName: "質問者の名前",
+  //   authorId: 1,
+  //   updatedAt: new Date().toISOString(),
+  //   bodyText: "これは質問者の再返信です。",
+  // },
 ];
 
 export default function Question({ params: { uuid } }) {
   const [question, setQuestion] = useState(dummyQuestion);
-  const [user, setUser] = useState(dummyUser, dummyAnswer);
+  const [user, setUser] = useState(dummyUser);
   const [comments, setComments] = useState(dummyComments);
+
+  return (
+    <QuestionDetail
+      question={question}
+      user={user}
+      comments={comments}
+    />
+  );
+}
+
+const QuestionDetail = ({ question, user, comments }) => {
+  const [answer, setAnswer] = useState("");
+  const [isResolved, setIsResolved] = useState(question.isResolved);
 
   const handleResolve = () => {
     setIsResolved(true);
@@ -69,27 +82,6 @@ export default function Question({ params: { uuid } }) {
   const handleAnswerSubmit = () => {
     setAnswer("");
   };
-
-  return (
-    <QuestionDetail
-      question={question}
-      user={user}
-      comments={comments}
-      handleResolve={handleResolve}
-      handleAnswerSubmit={handleAnswerSubmit}
-    />
-  );
-}
-
-const QuestionDetail = ({
-  question,
-  user,
-  comments,
-  handleResolve,
-  handleAnswerSubmit,
-}) => {
-  const [answer, setAnswer] = useState("");
-  const [isResolved, setIsResolved] = useState(question.isResolved);
 
   return (
     <article>
@@ -136,6 +128,21 @@ const QuestionDetail = ({
               comment.authorId === question.authorId ? "ml-20" : "mr-20"
             }`}
           >
+            <div
+              className={`absolute ${
+                comment.authorId === question.authorId ? "top-0" : "top-0"
+              } transform ${
+                comment.authorId === question.authorId
+                  ? "left-[-3rem] -translate-x-full"
+                  : "right-[-3rem] translate-x-full"
+              } w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center`}
+            >
+              <span className="text-gray-600 text-xs">
+                {comment.authorId === question.authorId
+                  ? dummyQuestion.userIcon
+                  : dummyAnswer.userIcon}
+              </span>
+            </div>
             <div
               className={`absolute top-8 ${
                 comment.authorId === question.authorId ? "left-0" : "right-0"
