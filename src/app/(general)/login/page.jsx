@@ -1,22 +1,13 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Settings } from "@/config";
+import { FaGithub } from "rocketicons/fa";
 
 export default function Login() {
-  const router = useRouter();
-
-  const handleAuth = () => {
-    try {
-      router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/github`);
-    } catch (error) {
-      console.error("リクエストエラー:", error);
-    }
-  };
-
   return (
     <article>
       <h1>ログインページ</h1>
       <div className="mt-16 text-center">
-        <button onClick={handleAuth}>GitHubでログイン</button>
+        <Link href={`${Settings.API_URL}/auth/github`}><FaGithub className="icon-6xl" />GitHubでログイン</Link>
       </div>
     </article>
   );
