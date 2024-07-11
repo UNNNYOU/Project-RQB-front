@@ -37,13 +37,13 @@ export default function Questions() {
   }, [params]);
 
   const handleOrderBy = (e) => {
-    let query = { ...router.query, order_by: e.target.value };
-    if (e.target.value === OrderBy.NEW) {
-      delete query.order_by;
+    let query = new URLSearchParams(params);
+    if (e.target.value === OrderBy.OLD) {
+      query.set("order_by", OrderBy.OLD);
+    } else {
+      query.delete("order_by");
     }
-    const url = new URL(window.location.href);
-    url.search = new URLSearchParams(query).toString();
-    router.push(url.toString());
+    router.push(Routes.questions + "?" + query.toString());
   };
 
   return (
@@ -143,7 +143,7 @@ export default function Questions() {
                     {question.tags.map((tag) => (
                       <Link
                         key={tag}
-                        href="#"
+                        href={Routes.questions + "?tag=" + tag}
                         className="rounded bg-slate-400 px-2 py-1 text-white transition-all hover:bg-slate-700 hover:text-white"
                       >
                         {tag}
