@@ -12,12 +12,18 @@ const dummyQuestion = {
   content: "これはダミーの質問内容です。",
   authorId: 1,
   isResolved: false,
+  userIcon: "質問者",
 };
 
 const dummyUser = {
   id: 1,
   name: "質問者の名前",
-  userIcon: "質問者",
+};
+
+const dummyAnswer = {
+  id: 2,
+  name: "回答者の名前",
+  userIcon: "回答者",
 };
 
 const dummyComments = [
@@ -53,7 +59,7 @@ const dummyComments = [
 
 export default function Question({ params: { uuid } }) {
   const [question, setQuestion] = useState(dummyQuestion);
-  const [user, setUser] = useState(dummyUser);
+  const [user, setUser] = useState(dummyUser, dummyAnswer);
   const [comments, setComments] = useState(dummyComments);
 
   const handleResolve = () => {
@@ -91,7 +97,9 @@ const QuestionDetail = ({
         <div className="bg-white shadow-md rounded-lg p-4">
           <div className="flex mb-4">
             <div className="w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 text-xs">{dummyUser.userIcon}</span>
+              <span className="text-gray-600 text-xs">
+                {dummyQuestion.userIcon}
+              </span>
             </div>
             <div className="flex flex-col ml-4">
               <h1 className="text-2xl font-bold mt-4">{question.title}</h1>
@@ -159,6 +167,21 @@ const QuestionDetail = ({
             user.id === question.authorId ? "ml-20" : "mr-20"
           }`}
         >
+          <div
+            className={`absolute ${
+              user.id === question.authorId ? "top-0" : "top-0"
+            } transform ${
+              user.id === question.authorId
+                ? "left-[-3rem] -translate-x-full"
+                : "right-[-3rem] translate-x-full"
+            } w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center`}
+          >
+            <span className="text-gray-600 text-xs">
+              {user.id === question.authorId
+                ? dummyQuestion.userIcon
+                : dummyAnswer.userIcon}
+            </span>
+          </div>
           <div
             className={`absolute top-10 ${
               user.id === question.authorId ? "left-0" : "right-0"
