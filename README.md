@@ -3,6 +3,7 @@
 1. `git clone`
 1. `.env.local`をルートに作成
 1. `docker compose build`
+1. `docker compose run --rm web yarn install` 
 1. `docker compose up`
 
 ## コンテナの入り方
@@ -48,5 +49,6 @@ $ yarn format
 
 - [tailwind CSS](https://tailwindcss.com/)
 - [shadcn/ui Components](https://ui.shadcn.com/docs/components/accordion)
+- [rocketicons](https://rocketicons.io)
 - [SWR](https://swr.vercel.app/ja)
 - [Recoil](https://recoiljs.org/)

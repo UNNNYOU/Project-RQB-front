@@ -18,11 +18,13 @@
     "react": "^18",
     "react-dom": "^18",
     "recoil": "^0.7.7",
+    "rocketicons": "^0.2.7",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
