@@ -16,7 +16,7 @@ const dummyQuestion = {
 };
 
 const dummyUser = {
-  id: 1,
+  id: 2, //ここを1以外に変更すると質問者以外になります
   name: "質問者の名前",
 };
 
@@ -62,13 +62,7 @@ export default function Question({ params: { uuid } }) {
   const [user, setUser] = useState(dummyUser);
   const [comments, setComments] = useState(dummyComments);
 
-  return (
-    <QuestionDetail
-      question={question}
-      user={user}
-      comments={comments}
-    />
-  );
+  return <QuestionDetail question={question} user={user} comments={comments} />;
 }
 
 const QuestionDetail = ({ question, user, comments }) => {
@@ -85,7 +79,20 @@ const QuestionDetail = ({ question, user, comments }) => {
 
   return (
     <article>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 relative">
+        <div
+          className={`absolute top-12 right-[-1rem] transform rotate-45 h-8 w-40 text-white text-center z-10 ${
+            isResolved ? "bg-blue-600" : "bg-red-600"
+          }`}
+          style={{
+            clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0% 100%)",
+            lineHeight: "30px",
+            marginTop: "-3px",
+            marginRight: "-2px",
+          }}
+        >
+          {isResolved ? "解 決 済" : "未 解 決"}
+        </div>
         <div className="bg-white shadow-md rounded-lg p-4">
           <div className="flex mb-4">
             <div className="w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center">
@@ -121,6 +128,7 @@ const QuestionDetail = ({ question, user, comments }) => {
           </div>
         </div>
       </div>
+
       {comments.map((comment) => (
         <div key={comment.id} className="container mx-auto p-4">
           <div
