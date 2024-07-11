@@ -219,7 +219,7 @@ const QuestionDetail = ({ question, user, comments }) => {
           {user.id === question.authorId && !isResolved && (
             <button
               onClick={handleResolve}
-              className="bg-green-500 text-white px-4 py-2 rounded-lg mt-2 ml-2"
+              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg mt-2 ml-2"
             >
               解決済みにする
             </button>
