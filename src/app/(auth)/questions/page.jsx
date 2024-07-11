@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Routes } from "@/config";
 
 const Data = Array.from({ length: 10 }, (_, i) => ({
@@ -28,9 +29,21 @@ const OrderBy = {
 
 export default function Questions() {
   const [orderBy, setOrderBy] = useState(OrderBy.NEW);
+  const router = useRouter();
+  const params = useSearchParams();
+
+  useEffect(() => {
+    setOrderBy(params.get("order_by") ? OrderBy.OLD : OrderBy.NEW);
+  }, [params]);
 
   const handleOrderBy = (e) => {
-    setOrderBy(e.target.value);
+    let query = { ...router.query, order_by: e.target.value };
+    if (e.target.value === OrderBy.NEW) {
+      delete query.order_by;
+    }
+    const url = new URL(window.location.href);
+    url.search = new URLSearchParams(query).toString();
+    router.push(url.toString());
   };
 
   return (
