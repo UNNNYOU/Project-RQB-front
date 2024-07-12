@@ -1,28 +1,24 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
-function SetAccessToken() {
-  const searchParams = useSearchParams();
+const Login = () => {
+  const params = useSearchParams();
+  const { setAccessToken } = useAuth();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-    if (token) {
-      localStorage.setItem("access_token", token);
-    }
-  }, [searchParams]);
-
-  return null;
-}
+    const token = params.get("token");
+    if (token) setAccessToken(token);
+  }, [params, setAccessToken]);
+};
 
 export default function Auth() {
+  Login();
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SetAccessToken />
-      <article>
-        <h1>仮の認証ページ</h1>
-      </article>
-    </Suspense>
+    <article>
+      <h1>仮の認証ページ</h1>
+    </article>
   );
 }
-
