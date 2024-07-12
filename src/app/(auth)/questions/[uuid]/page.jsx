@@ -214,14 +214,14 @@ const QuestionDetail = ({ question, user, comments }) => {
           ></textarea>
           <button
             onClick={handleAnswerSubmit}
-            className="mt-2 w-full rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-[#D66200] sm:w-auto"
+            className="mt-2 w-full rounded-lg bg-runteq-primary px-4 py-2 text-white transition-all hover:bg-[#D66200] sm:w-auto"
           >
             送信する
           </button>
           {user.id === question.authorId && !isResolved && (
             <button
               onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 sm:ml-2 sm:w-auto"
+              className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white transition-all hover:bg-indigo-600 sm:ml-2 sm:w-auto"
             >
               解決済みにする
             </button>
