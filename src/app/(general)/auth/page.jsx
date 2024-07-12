@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
@@ -11,13 +11,16 @@ const Login = () => {
     const token = params.get("token");
     if (token) setAccessToken(token);
   }, [params, setAccessToken]);
+
+  return null;
 };
 
 export default function Auth() {
-  Login();
-
   return (
     <article>
+      <Suspense>
+        <Login />
+      </Suspense>
       <h1>仮の認証ページ</h1>
     </article>
   );
