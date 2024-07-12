@@ -206,26 +206,29 @@ const QuestionDetail = ({ question, user, comments }) => {
                   : "polygon(0 0, 100% 0, 0 100%)",
             }}
           ></div>
-          <textarea
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            className="h-32 w-full rounded-lg border bg-gray-100 p-2"
-            placeholder="コメントを入力"
-          ></textarea>
-          <button
-            onClick={handleAnswerSubmit}
-            className="mt-2 w-full rounded-lg bg-runteq-primary px-4 py-2 text-white transition-all hover:bg-[#D66200] sm:w-auto"
-          >
-            送信する
-          </button>
-          {user.id === question.authorId && !isResolved && (
+          <form onSubmit={handleAnswerSubmit}>
+            <textarea
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              className="h-32 w-full rounded-lg border bg-gray-100 p-2"
+              placeholder="コメントを入力"
+            ></textarea>
             <button
-              onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white transition-all hover:bg-indigo-600 sm:ml-2 sm:w-auto"
+              type="submit"
+              className="mt-2 w-full rounded-lg bg-runteq-primary px-4 py-2 text-white transition-all hover:bg-[#D66200] sm:w-auto"
             >
-              解決済みにする
+              送信する
             </button>
-          )}
+            {user.id === question.authorId && !isResolved && (
+              <button
+                type="button"
+                onClick={handleResolve}
+                className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white transition-all hover:bg-indigo-600 sm:ml-2 sm:w-auto"
+              >
+                解決済みにする
+              </button>
+            )}
+          </form>
         </div>
       </div>
     </article>
