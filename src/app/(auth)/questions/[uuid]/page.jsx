@@ -95,22 +95,22 @@ const QuestionDetail = ({ question, user, comments }) => {
         </div>
 
         <div className="bg-white shadow-md rounded-lg p-6">
-          <div className="flex mb-4">
+          <div className="flex flex-col sm:flex-row mb-4">
             <div className="w-14 h-14 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center">
               <span className="text-gray-600 text-xs">
                 {dummyQuestion.userIcon}
               </span>
             </div>
-            <div className="flex flex-col ml-8 w-full">
-              <h1 className="text-2xl font-bold mt-4">{question.title}</h1>
-              <div className="flex flex-wrap border-b border-gray-300 pb-2 mb-2 mt-8 w-full">
-                <p className="text-sm text-gray-600">
+            <div className="flex flex-col ml-0 sm:ml-8 mt-4 sm:mt-0 w-full">
+              <h1 className="text-2xl font-bold">{question.title}</h1>
+              <div className="flex flex-wrap border-b border-gray-300 pb-2 mb-2 mt-4 sm:mt-8 w-full">
+                <p className="text-sm text-gray-600 w-full sm:w-auto">
                   質問者: {question.authorName}
                 </p>
-                <p className="text-sm text-gray-600 ml-6">
+                <p className="text-sm text-gray-600 w-full sm:w-auto sm:ml-6">
                   質問日時: {new Date(question.createdAt).toLocaleString()}
                 </p>
-                <p className="text-sm text-gray-600 ml-6">
+                <p className="text-sm text-gray-600 w-full sm:w-auto sm:ml-6">
                   更新日時: {new Date(question.updatedAt).toLocaleString()}
                 </p>
               </div>
@@ -221,14 +221,14 @@ const QuestionDetail = ({ question, user, comments }) => {
           ></textarea>
           <button
             onClick={handleAnswerSubmit}
-            className="bg-orange-500 hover:bg-[#D66200] text-white px-4 py-2 rounded-lg mt-2"
+            className="bg-orange-500 hover:bg-[#D66200] text-white px-4 py-2 rounded-lg mt-2 w-full sm:w-auto"
           >
             送信する
           </button>
           {user.id === question.authorId && !isResolved && (
             <button
               onClick={handleResolve}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg mt-2 ml-2"
+              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg mt-2 ml-0 sm:ml-2 w-full sm:w-auto"
             >
               解決済みにする
             </button>
