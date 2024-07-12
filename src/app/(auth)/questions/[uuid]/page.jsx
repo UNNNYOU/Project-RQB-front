@@ -72,9 +72,9 @@ const QuestionDetail = ({ question, user, comments }) => {
 
   return (
     <article>
-      <div className="container mx-auto p-4 relative">
+      <div className="container relative mx-auto p-4">
         <div
-          className={`absolute top-12 right-[-1rem] transform rotate-45 h-8 w-40 text-white text-center z-10 ${
+          className={`absolute -right-4 top-12 z-10 h-8 w-40 rotate-45 text-center text-white ${
             isResolved ? "bg-blue-600" : "bg-red-600"
           }`}
           style={{
@@ -87,23 +87,23 @@ const QuestionDetail = ({ question, user, comments }) => {
           {isResolved ? "解 決 済" : "未 解 決"}
         </div>
 
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <div className="flex flex-col sm:flex-row mb-4">
-            <div className="w-14 h-14 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center">
-              <span className="text-gray-600 text-xs">
+        <div className="rounded-lg bg-white p-6 shadow-md">
+          <div className="mb-4 flex flex-col sm:flex-row">
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-gray-300">
+              <span className="text-xs text-gray-600">
                 {dummyQuestion.userIcon}
               </span>
             </div>
-            <div className="flex flex-col ml-0 sm:ml-8 mt-4 sm:mt-0 w-full">
+            <div className="ml-0 mt-4 flex w-full flex-col sm:ml-8 sm:mt-0">
               <h1 className="text-2xl font-bold">{question.title}</h1>
-              <div className="flex flex-wrap border-b border-gray-300 pb-2 mb-2 mt-4 sm:mt-8 w-full">
-                <p className="text-sm text-gray-600 w-full sm:w-auto">
+              <div className="mb-2 mt-4 flex w-full flex-wrap border-b border-gray-300 pb-2 sm:mt-8">
+                <p className="w-full text-sm text-gray-600 sm:w-auto">
                   質問者: {question.authorName}
                 </p>
-                <p className="text-sm text-gray-600 w-full sm:w-auto sm:ml-6">
+                <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
                   質問日時: {new Date(question.createdAt).toLocaleString()}
                 </p>
-                <p className="text-sm text-gray-600 w-full sm:w-auto sm:ml-6">
+                <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
                   更新日時: {new Date(question.updatedAt).toLocaleString()}
                 </p>
               </div>
@@ -111,7 +111,7 @@ const QuestionDetail = ({ question, user, comments }) => {
                 {question.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg"
+                    className="mr-2 rounded-lg bg-blue-500 px-2.5 py-0.5 text-xs font-semibold text-white"
                   >
                     {tag}
                   </span>
@@ -126,20 +126,20 @@ const QuestionDetail = ({ question, user, comments }) => {
       {comments.map((comment) => (
         <div key={comment.id} className="container mx-auto p-4">
           <div
-            className={`relative p-4 bg-white shadow-md rounded-lg ${
+            className={`relative rounded-lg bg-white p-4 shadow-md ${
               comment.authorId === question.authorId ? "ml-20" : "mr-20"
             }`}
           >
             <div
               className={`absolute ${
                 comment.authorId === question.authorId ? "top-0" : "top-0"
-              } transform ${
+              } ${
                 comment.authorId === question.authorId
-                  ? "left-[-3rem] -translate-x-full"
-                  : "right-[-3rem] translate-x-full"
-              } w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center`}
+                  ? "-left-12 -translate-x-full"
+                  : "-right-12 translate-x-full"
+              } flex size-14 items-center justify-center rounded-full bg-gray-300`}
             >
-              <span className="text-gray-600 text-xs">
+              <span className="text-xs text-gray-600">
                 {comment.authorId === question.authorId
                   ? dummyQuestion.userIcon
                   : dummyAnswer.userIcon}
@@ -148,11 +148,11 @@ const QuestionDetail = ({ question, user, comments }) => {
             <div
               className={`absolute top-8 ${
                 comment.authorId === question.authorId ? "left-0" : "right-0"
-              } transform ${
+              } ${
                 comment.authorId === question.authorId
                   ? "-translate-x-full"
                   : "translate-x-full"
-              } w-8 h-6 bg-white`}
+              } h-6 w-8 bg-white`}
               style={{
                 clipPath:
                   comment.authorId === question.authorId
@@ -160,7 +160,7 @@ const QuestionDetail = ({ question, user, comments }) => {
                     : "polygon(0 0, 100% 0, 0 100%)",
               }}
             ></div>
-            <p className="text-sm text-gray-600 font-bold">
+            <p className="text-sm font-bold text-gray-600">
               {comment.authorName}
             </p>
             <p className="text-sm text-gray-600">
@@ -172,20 +172,20 @@ const QuestionDetail = ({ question, user, comments }) => {
       ))}
       <div className="container mx-auto p-4">
         <div
-          className={`relative bg-white shadow-md rounded-lg p-4 ${
+          className={`relative rounded-lg bg-white p-4 shadow-md ${
             user.id === question.authorId ? "ml-20" : "mr-20"
           }`}
         >
           <div
             className={`absolute ${
               user.id === question.authorId ? "top-0" : "top-0"
-            } transform ${
+            } ${
               user.id === question.authorId
-                ? "left-[-3rem] -translate-x-full"
-                : "right-[-3rem] translate-x-full"
-            } w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center`}
+                ? "-left-12 -translate-x-full"
+                : "-right-12 translate-x-full"
+            } flex size-14 items-center justify-center rounded-full bg-gray-300`}
           >
-            <span className="text-gray-600 text-xs">
+            <span className="text-xs text-gray-600">
               {user.id === question.authorId
                 ? dummyQuestion.userIcon
                 : dummyAnswer.userIcon}
@@ -194,11 +194,11 @@ const QuestionDetail = ({ question, user, comments }) => {
           <div
             className={`absolute top-10 ${
               user.id === question.authorId ? "left-0" : "right-0"
-            } transform ${
+            } ${
               user.id === question.authorId
                 ? "-translate-x-full"
                 : "translate-x-full"
-            } w-8 h-6 bg-white`}
+            } h-6 w-8 bg-white`}
             style={{
               clipPath:
                 user.id === question.authorId
@@ -209,19 +209,19 @@ const QuestionDetail = ({ question, user, comments }) => {
           <textarea
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            className="w-full p-2 border rounded-lg bg-gray-100 h-32"
+            className="h-32 w-full rounded-lg border bg-gray-100 p-2"
             placeholder="コメントを入力"
           ></textarea>
           <button
             onClick={handleAnswerSubmit}
-            className="bg-orange-500 hover:bg-[#D66200] text-white px-4 py-2 rounded-lg mt-2 w-full sm:w-auto"
+            className="mt-2 w-full rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-[#D66200] sm:w-auto"
           >
             送信する
           </button>
           {user.id === question.authorId && !isResolved && (
             <button
               onClick={handleResolve}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg mt-2 ml-0 sm:ml-2 w-full sm:w-auto"
+              className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 sm:ml-2 sm:w-auto"
             >
               解決済みにする
             </button>
