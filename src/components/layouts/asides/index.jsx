@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { HiSearch, HiHome } from "rocketicons/hi";
+import { RiQuestionnaireFill } from "rocketicons/ri";
 import { Routes } from "@/config";
 
 export default function Asides() {
@@ -10,24 +12,27 @@ export default function Asides() {
             <li className="md:hidden">
               <button
                 type="button"
-                className="p-4 transition-all hover:bg-runteq-primary hover:text-white"
+                className="flex items-center justify-start gap-3 p-4 transition-all hover:bg-runteq-primary hover:text-white"
               >
+                <HiSearch className="inline-block size-5" />
                 検索
               </button>
             </li>
             <li>
               <Link
                 href={Routes.questions}
-                className="rounded p-4 transition-all hover:bg-runteq-primary hover:text-white md:bg-white md:px-8 md:py-2"
+                className="flex items-center justify-start gap-3 rounded p-4 transition-all hover:bg-runteq-primary hover:text-white md:bg-white md:px-8 md:py-2"
               >
+                <RiQuestionnaireFill className="inline-block size-5" />
                 質問
               </Link>
             </li>
             <li>
               <Link
                 href={Routes.home}
-                className="rounded p-4 transition-all hover:bg-runteq-primary hover:text-white md:bg-white md:px-8 md:py-2"
+                className="flex items-center justify-start gap-3 rounded p-4 transition-all hover:bg-runteq-primary hover:text-white md:bg-white md:px-8 md:py-2"
               >
+                <HiHome className="inline-block size-5" />
                 ホーム
               </Link>
             </li>
