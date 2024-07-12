@@ -15,9 +15,9 @@ export default function Pagination(currentPage, totalPage) {
   return (
     <article className="flex w-full items-center justify-center md:my-8 md:justify-start">
       <section className="text-sm text-runteq-secondary">
-        <span className="rounded-l border border-runteq-secondary bg-runteq-secondary px-3 py-2 text-white">
+        <button className="rounded-l border border-runteq-secondary bg-runteq-secondary px-3 py-2 text-white" disabled>
           1
-        </span>
+        </button>
         <button
           onClick={() => handleClickPage(2)}
           className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
@@ -42,9 +42,9 @@ export default function Pagination(currentPage, totalPage) {
         >
           5
         </button>
-        <span className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600 ">
+        <button className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600" disabled>
           ...
-        </span>
+        </button>
         <button
           onClick={() => handleClickPage(currentPage + 1)}
           className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
