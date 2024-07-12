@@ -46,14 +46,14 @@ const dummyComments = [
     authorName: "回答者2の名前",
     authorId: 3,
     updatedAt: new Date().toISOString(),
-    bodyText: "これは回答者2のダミーのコメントです。"
-  }
+    bodyText: "これは回答者2のダミーのコメントです。",
+  },
 ];
 
-export default function Question({ params: { uuid } }) {
-  const [question, setQuestion] = useState(dummyQuestion);
-  const [user, setUser] = useState(dummyUser);
-  const [comments, setComments] = useState(dummyComments);
+export default function Question() {
+  const [question] = useState(dummyQuestion);
+  const [user] = useState(dummyUser);
+  const [comments] = useState(dummyComments);
 
   return <QuestionDetail question={question} user={user} comments={comments} />;
 }
