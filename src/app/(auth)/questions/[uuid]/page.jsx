@@ -16,7 +16,7 @@ const dummyQuestion = {
 };
 
 const dummyUser = {
-  id: 1, //ここを1以外に変更すると質問者以外になります
+  id: 1,
   name: "質問者の名前",
 };
 
@@ -46,15 +46,8 @@ const dummyComments = [
     authorName: "回答者2の名前",
     authorId: 3,
     updatedAt: new Date().toISOString(),
-    bodyText: "これは回答者2のダミーのコメントです。",
-  },
-  // {
-  //   id: 4,
-  //   authorName: "質問者の名前",
-  //   authorId: 1,
-  //   updatedAt: new Date().toISOString(),
-  //   bodyText: "これは質問者の再返信です。",
-  // },
+    bodyText: "これは回答者2のダミーのコメントです。"
+  }
 ];
 
 export default function Question({ params: { uuid } }) {
