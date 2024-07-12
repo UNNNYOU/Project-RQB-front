@@ -1,11 +1,10 @@
 "use client";
 
-import { Settings } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import useSWR from "swr";
-import { Routes } from "@/config";
+import { Routes, Settings } from "@/config";
 import { Pagination, QuestionList } from "@/features/questions/components";
 
 const OrderBy = {
@@ -22,7 +21,14 @@ const QuestionsPage = () => {
   const nextParams = new URLSearchParams(params);
   nextParams.set("page", Number(page) + 1);
   // TODO : 質問の総数を取得する。API側のURLは仮
-  const { data } = useSWR(`${Settings.API_URL}/questions_count`, fetcher, { fallbackData: { count: 500 } });
+  const { data } = useSWR(`${Settings.API_URL}/questions_count`, fetcher, {
+    fallbackData: { count: 500 },
+    onErrorRetry: (error) => {
+      if (error.status === 404) {
+        return;
+      }
+    },
+  });
 
   const handleOrderBy = (e) => {
     const query = new URLSearchParams(params);
@@ -86,13 +92,17 @@ const QuestionsPage = () => {
           </div>
         </div>
 
-        <QuestionList url={`${Settings.API_URL}?${params.toString()}`} />
+        <QuestionList
+          url={`${Settings.API_URL}/questions?${params.toString()}`}
+        />
       </article>
 
       <Pagination />
 
       <div className="hidden">
-        <QuestionList url={`${Settings.API_URL}?${nextParams.toString()}`} />
+        <QuestionList
+          url={`${Settings.API_URL}/questions?${nextParams.toString()}`}
+        />
       </div>
     </>
   );

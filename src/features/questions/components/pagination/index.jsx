@@ -14,8 +14,12 @@ export default function Pagination(currentPage, totalPage) {
 
   return (
     <article className="flex w-full items-center justify-center md:my-8 md:justify-start">
+      {/* TODO : ページネーションの機能面含めた実装は別issue */}
       <section className="text-sm text-runteq-secondary">
-        <button className="rounded-l border border-runteq-secondary bg-runteq-secondary px-3 py-2 text-white" disabled>
+        <button
+          className="rounded-l border border-runteq-secondary bg-runteq-secondary px-3 py-2 text-white"
+          disabled
+        >
           1
         </button>
         <button
@@ -42,7 +46,10 @@ export default function Pagination(currentPage, totalPage) {
         >
           5
         </button>
-        <button className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600" disabled>
+        <button
+          className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600"
+          disabled
+        >
           ...
         </button>
         <button

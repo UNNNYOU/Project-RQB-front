@@ -20,10 +20,26 @@ const Data = Array.from({ length: 10 }, (_, i) => ({
   },
 }));
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = async (url) => {
+  try {
+    const res = await fetch(url);
 
-export default function QuestionList(url) {
-  const { data } = useSWR(url, fetcher, { fallbackData: Data });
+    return res.json();
+  } catch (e) {
+    return Data;
+  }
+};
+
+export default function QuestionList({ url }) {
+  // TODO : 初期値はダミーデータ
+  const { data } = useSWR(url, fetcher, {
+    fallbackData: Data,
+    onErrorRetry: (error) => {
+      if (error.status === 404) {
+        return;
+      }
+    },
+  });
 
   // TODO : ローディング表示
   if (!data) return <div>loading...</div>;
@@ -33,7 +49,7 @@ export default function QuestionList(url) {
       <div className="my-4 rounded bg-white px-3 md:px-6 md:py-3">
         {data.map((question, index) => (
           <section
-            key={question.id}
+            key={index}
             className={`flex items-start justify-center gap-2 py-4 ${index != Data.length - 1 && "border-b border-slate-300"}`}
           >
             <div className="flex flex-col items-center justify-center gap-1">
@@ -88,7 +104,10 @@ export default function QuestionList(url) {
                     </Link>
                   ))}
                 </div>
-                <time datetime={question.date} className="text-end text-sm text-gray-400">
+                <time
+                  dateTime={question.date}
+                  className="text-end text-sm text-gray-400"
+                >
                   {question.date}
                 </time>
               </div>
