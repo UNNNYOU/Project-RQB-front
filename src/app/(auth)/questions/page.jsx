@@ -4,6 +4,7 @@ import { Settings } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import useSWR from "swr";
 import { Routes } from "@/config";
 import { Pagination, QuestionList } from "@/features/questions/components";
 
@@ -12,12 +13,16 @@ const OrderBy = {
   OLD: "old",
 };
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 const QuestionsPage = () => {
   const params = useSearchParams();
   const router = useRouter();
   const page = params.get("page") || 1;
   const nextParams = new URLSearchParams(params);
   nextParams.set("page", Number(page) + 1);
+  // TODO : 質問の総数を取得する。API側のURLは仮
+  const { data } = useSWR(`${Settings.API_URL}/questions_count`, fetcher, { fallbackData: { count: 500 } });
 
   const handleOrderBy = (e) => {
     const query = new URLSearchParams(params);
@@ -50,7 +55,7 @@ const QuestionsPage = () => {
             </Link>
           </div>
           <div className="flex w-full items-center justify-between ">
-            <p className="text-sm">1000件の質問</p>
+            <p className="text-sm">{data.count}件の質問</p>
             <div
               id="question-order"
               className="flex items-center justify-center gap-2 rounded border border-slate-400 bg-white px-2 py-1 text-sm"

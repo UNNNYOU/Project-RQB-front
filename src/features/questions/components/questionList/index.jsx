@@ -68,7 +68,7 @@ export default function QuestionList(url) {
                   {question.title}
                 </Link>
               </h2>
-              <p className="line-clamp-2 text-sm text-gray-600">
+              <p className="line-clamp-2 w-full max-w-[900px] text-sm text-gray-600">
                 {question.content}
               </p>
               <div className="mt-2 md:flex md:items-end md:justify-between">
