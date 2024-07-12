@@ -6,7 +6,6 @@ import useSWR from "swr";
 import { Routes } from "@/config";
 
 const Data = Array.from({ length: 10 }, (_, i) => ({
-  id: i,
   uuid: `uuid${i}`,
   title: "redirect_toで編集画面への遷移がDELETEメソッドになってしまう",
   content:
@@ -26,6 +25,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function QuestionList(url) {
   const { data } = useSWR(url, fetcher, { fallbackData: Data });
 
+  // TODO : ローディング表示
   if (!data) return <div>loading...</div>;
 
   return (
@@ -88,9 +88,9 @@ export default function QuestionList(url) {
                     </Link>
                   ))}
                 </div>
-                <div className="text-end text-sm text-gray-400">
+                <time datetime={question.date} className="text-end text-sm text-gray-400">
                   {question.date}
-                </div>
+                </time>
               </div>
             </div>
           </section>
