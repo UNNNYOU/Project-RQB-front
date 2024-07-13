@@ -1,7 +1,7 @@
 "use client";
 
-import CommentsSection from "@/components/Questions/CommentsSection";
 import { useState } from "react";
+import CommentsSection from "@/components/Questions/CommentsSection";
 
 const dummyQuestion = {
   uuid: "12345",
