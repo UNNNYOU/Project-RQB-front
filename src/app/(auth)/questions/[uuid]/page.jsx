@@ -1,5 +1,6 @@
 "use client";
 
+import CommentsSection from "@/components/Questions/CommentsSection";
 import { useState } from "react";
 
 const dummyQuestion = {
@@ -122,54 +123,12 @@ const QuestionDetail = ({ question, user, comments }) => {
           </div>
         </div>
       </div>
-
-      {comments.map((comment) => (
-        <div key={comment.id} className="container mx-auto p-4">
-          <div
-            className={`relative rounded-lg bg-white p-4 shadow-md ${
-              comment.authorId === question.authorId ? "ml-20" : "mr-20"
-            }`}
-          >
-            <div
-              className={`absolute ${
-                comment.authorId === question.authorId ? "top-0" : "top-0"
-              } ${
-                comment.authorId === question.authorId
-                  ? "-left-12 -translate-x-full"
-                  : "-right-12 translate-x-full"
-              } flex size-14 items-center justify-center rounded-full bg-gray-300`}
-            >
-              <span className="text-xs text-gray-600">
-                {comment.authorId === question.authorId
-                  ? dummyQuestion.userIcon
-                  : dummyAnswer.userIcon}
-              </span>
-            </div>
-            <div
-              className={`absolute top-8 ${
-                comment.authorId === question.authorId ? "left-0" : "right-0"
-              } ${
-                comment.authorId === question.authorId
-                  ? "-translate-x-full"
-                  : "translate-x-full"
-              } h-6 w-8 bg-white`}
-              style={{
-                clipPath:
-                  comment.authorId === question.authorId
-                    ? "polygon(0 0, 100% 0, 100% 100%)"
-                    : "polygon(0 0, 100% 0, 0 100%)",
-              }}
-            ></div>
-            <p className="text-sm font-bold text-gray-600">
-              {comment.authorName}
-            </p>
-            <p className="text-sm text-gray-600">
-              {new Date(comment.updatedAt).toLocaleString()}
-            </p>
-            <p className="mt-2">{comment.bodyText}</p>
-          </div>
-        </div>
-      ))}
+      <CommentsSection
+        comments={comments}
+        question={question}
+        dummyQuestion={dummyQuestion}
+        dummyAnswer={dummyAnswer}
+      />
       <div className="container mx-auto p-4">
         <div
           className={`relative rounded-lg bg-white p-4 shadow-md ${
