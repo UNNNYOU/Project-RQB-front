@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import CommentsSection from "@/components/Questions/CommentsSection";
+import CommentsSection from "@/components/Questions/Comments/CommentsSection";
+import QuestionDetail from "@/components/Questions/Details/QuestionDetail";
 
 const dummyQuestion = {
   uuid: "12345",
@@ -55,11 +56,6 @@ export default function Question() {
   const [question] = useState(dummyQuestion);
   const [user] = useState(dummyUser);
   const [comments] = useState(dummyComments);
-
-  return <QuestionDetail question={question} user={user} comments={comments} />;
-}
-
-const QuestionDetail = ({ question, user, comments }) => {
   const [answer, setAnswer] = useState("");
   const [isResolved, setIsResolved] = useState(question.isResolved);
 
@@ -73,56 +69,8 @@ const QuestionDetail = ({ question, user, comments }) => {
 
   return (
     <article>
-      <div className="container relative mx-auto p-4">
-        <div
-          className={`absolute -right-4 top-12 z-10 h-8 w-40 rotate-45 text-center text-white ${
-            isResolved ? "bg-blue-600" : "bg-red-600"
-          }`}
-          style={{
-            clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0% 100%)",
-            lineHeight: "30px",
-            marginTop: "-3px",
-            marginRight: "-2px",
-          }}
-        >
-          {isResolved ? "解 決 済" : "未 解 決"}
-        </div>
+      <QuestionDetail question={question} user={user} isResolved={isResolved} />
 
-        <div className="rounded-lg bg-white p-6 shadow-md">
-          <div className="mb-4 flex flex-col sm:flex-row">
-            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-gray-300">
-              <span className="text-xs text-gray-600">
-                {dummyQuestion.userIcon}
-              </span>
-            </div>
-            <div className="ml-0 mt-4 flex w-full flex-col sm:ml-8 sm:mt-0">
-              <h1 className="text-2xl font-bold">{question.title}</h1>
-              <div className="mb-2 mt-4 flex w-full flex-wrap border-b border-gray-300 pb-2 sm:mt-8">
-                <p className="w-full text-sm text-gray-600 sm:w-auto">
-                  質問者: {question.authorName}
-                </p>
-                <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
-                  質問日時: {new Date(question.createdAt).toLocaleString()}
-                </p>
-                <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
-                  更新日時: {new Date(question.updatedAt).toLocaleString()}
-                </p>
-              </div>
-              <div className="mb-8">
-                {question.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="mr-2 rounded-lg bg-blue-500 px-2.5 py-0.5 text-xs font-semibold text-white"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p className="mb-4">{question.content}</p>
-            </div>
-          </div>
-        </div>
-      </div>
       <CommentsSection
         comments={comments}
         question={question}
@@ -192,4 +140,4 @@ const QuestionDetail = ({ question, user, comments }) => {
       </div>
     </article>
   );
-};
+}

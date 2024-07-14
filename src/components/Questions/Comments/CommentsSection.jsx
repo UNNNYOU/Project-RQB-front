@@ -1,5 +1,5 @@
-import AnswererComment from "@/components/Questions/AnswererComment";
-import QuestionerComment from "@/components/Questions/QuestionerComment";
+import AnswererComment from "@/components/Questions/Comments/AnswererComment";
+import QuestionerComment from "@/components/Questions/Comments/QuestionerComment";
 
 const CommentsSection = ({
   comments,
