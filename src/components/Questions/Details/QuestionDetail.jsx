@@ -1,7 +1,7 @@
-import ResolvedStatus from '@/components/Questions/Details/ResolvedStatus';
-import UnresolvedStatus from '@/components/Questions/Details/UnresolvedStatus';
+import ResolvedStatus from "@/components/Questions/Details/ResolvedStatus";
+import UnresolvedStatus from "@/components/Questions/Details/UnresolvedStatus";
 
-const QuestionDetail = ({ question, user, isResolved }) => {
+const QuestionDetail = ({ question, isResolved }) => {
   return (
     <div className="container relative mx-auto p-4">
       {isResolved ? (
@@ -12,9 +12,7 @@ const QuestionDetail = ({ question, user, isResolved }) => {
       <div className="rounded-lg bg-white p-6 shadow-md">
         <div className="mb-4 flex flex-col sm:flex-row">
           <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-gray-300">
-            <span className="text-xs text-gray-600">
-              {question.userIcon}
-            </span>
+            <span className="text-xs text-gray-600">{question.userIcon}</span>
           </div>
           <div className="ml-0 mt-4 flex w-full flex-col sm:ml-8 sm:mt-0">
             <h1 className="text-2xl font-bold">{question.title}</h1>
