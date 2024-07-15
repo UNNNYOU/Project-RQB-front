@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import CommentForm from "@/components/Questions/CommentForms/CommentForm";
 import CommentsSection from "@/components/Questions/Comments/CommentsSection";
 import QuestionDetail from "@/components/Questions/Details/QuestionDetail";
-import CommentForm from "@/components/Questions/CommentForms/CommentForm";
 
 const dummyQuestion = {
   uuid: "12345",
@@ -78,7 +78,7 @@ export default function Question() {
         dummyQuestion={dummyQuestion}
         dummyAnswer={dummyAnswer}
       />
-      
+
       <CommentForm
         user={user}
         question={question}
