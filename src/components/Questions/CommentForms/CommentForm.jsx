@@ -63,7 +63,7 @@ const CommentForm = ({
             <button
               type="button"
               onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-indigo-500 px-4 py-2 text-white transition-all hover:bg-indigo-600 sm:ml-2 sm:w-auto"
+              className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
             >
               解決済みにする
             </button>
