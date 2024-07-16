@@ -74,3 +74,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ============================= */
+/*        質問一覧ページ         */
+/* ============================= */
+#question-order > label {
+  border-radius: 4px;
+  padding: 3px 10px;
+  transition: all 0.15s;
+}
+#question-order > label:has(input:checked) {
+  background-color: rgb(202, 202, 202);
+}
