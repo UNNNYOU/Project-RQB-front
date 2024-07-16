@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CommentForm from "@/components/Questions/CommentForms/CommentForm";
-import CommentsSection from "@/components/Questions/Comments/CommentsSection";
-import QuestionDetail from "@/components/Questions/Details/QuestionDetail";
+import * as Questions from "@/features/questions/components"
 
 const dummyQuestion = {
   uuid: "12345",
@@ -70,16 +68,16 @@ export default function Question() {
 
   return (
     <article>
-      <QuestionDetail question={question} user={user} isResolved={isResolved} />
+      <Questions.QuestionDetail question={question} user={user} isResolved={isResolved} />
 
-      <CommentsSection
+      <Questions.CommentsSection
         comments={comments}
         question={question}
         dummyQuestion={dummyQuestion}
         dummyAnswer={dummyAnswer}
       />
 
-      <CommentForm
+      <Questions.CommentForm
         user={user}
         question={question}
         isResolved={isResolved}

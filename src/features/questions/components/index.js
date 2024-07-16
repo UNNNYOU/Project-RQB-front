@@ -6,7 +6,7 @@ import CommentsSection from './commentsSection';
 import QuestionDetail from './questionDetail';
 import ResolvedStatus from './resolvedStatus';
 import UnresolvedStatus from './unresolvedStatus';
-import CommentForm from './commentForm';
+import CommentForm from './commentForms';
 
 export {
   Pagination,
