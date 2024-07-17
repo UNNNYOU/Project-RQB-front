@@ -1,5 +1,4 @@
-import AnswererComment from "@/components/Questions/Comments/AnswererComment";
-import QuestionerComment from "@/components/Questions/Comments/QuestionerComment";
+import * as Questions from "@/features/questions/components"
 
 const CommentsSection = ({
   comments,
@@ -11,13 +10,13 @@ const CommentsSection = ({
     <>
       {comments.map((comment) =>
         comment.authorId === question.authorId ? (
-          <QuestionerComment
+          <Questions.QuestionerComment
             key={comment.id}
             comment={comment}
             userIcon={dummyQuestion.userIcon}
           />
         ) : (
-          <AnswererComment
+          <Questions.AnswererComment
             key={comment.id}
             comment={comment}
             userIcon={dummyAnswer.userIcon}

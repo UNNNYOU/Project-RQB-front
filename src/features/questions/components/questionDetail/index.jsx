@@ -1,13 +1,12 @@
-import ResolvedStatus from "@/components/Questions/Details/ResolvedStatus";
-import UnresolvedStatus from "@/components/Questions/Details/UnresolvedStatus";
+import * as Questions from "@/features/questions/components"
 
 const QuestionDetail = ({ question, isResolved }) => {
   return (
     <div className="container relative mx-auto p-4">
       {isResolved ? (
-        <ResolvedStatus isResolved={isResolved} />
+        <Questions.ResolvedStatus isResolved={isResolved} />
       ) : (
-        <UnresolvedStatus isResolved={isResolved} />
+        <Questions.UnresolvedStatus isResolved={isResolved} />
       )}
       <div className="rounded-lg bg-white p-6 shadow-md">
         <div className="mb-4 flex flex-col sm:flex-row">
