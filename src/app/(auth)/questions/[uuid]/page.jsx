@@ -8,7 +8,7 @@ export default function QuestionPage({ params }) {
   return (
     <article>
       <Questions.QuestionDetail uuid={uuid} />
-      {/* <Questions.CommentsSection uuid={uuid} /> */}
+      <Questions.CommentsSection uuid={uuid} />
       <Questions.CommentForm uuid={uuid} />
     </article>
   );
