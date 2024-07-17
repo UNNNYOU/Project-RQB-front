@@ -1,4 +1,3 @@
-import React from 'react';
 import useSWR from 'swr';
 import * as Questions from "@/features/questions/components";
 
