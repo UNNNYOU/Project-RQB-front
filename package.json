@@ -11,6 +11,7 @@
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,json}'"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.399.0",

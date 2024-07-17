@@ -1,47 +1,139 @@
-const CommentForm = ({
-  user,
-  question,
-  isResolved,
-  answer,
-  setAnswer,
-  handleAnswerSubmit,
-  handleResolve,
-  dummyQuestion,
-  dummyAnswer,
-}) => {
+import React, { useState } from 'react';
+import axios from 'axios';
+import useSWR from 'swr';
+
+// ダミーデータ
+const dummyQuestion = {
+  uuid: "12345",
+  title: "ダミー質問のタイトル",
+  content: "これはダミーの質問内容です。",
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  tags: ["React", "JavaScript"],
+  isResolved: false,
+  user: {
+    uuid: "user-1",
+    name: "質問者の名前",
+    icon: "質問者"
+  },
+  comments: [
+    {
+      id: 1,
+      content: "これは回答者1のダミーのコメントです。",
+      createdAt: new Date().toISOString(),
+      author: {
+        uuid: "user-2",
+        name: "回答者1の名前",
+        icon: "回答者1"
+      }
+    },
+    {
+      id: 2,
+      content: "これは質問者の返信です。",
+      createdAt: new Date().toISOString(),
+      author: {
+        uuid: "user-1",
+        name: "質問者の名前",
+        icon: "質問者"
+      }
+    },
+    {
+      id: 3,
+      content: "これは回答者2のダミーのコメントです。",
+      createdAt: new Date().toISOString(),
+      author: {
+        uuid: "user-3",
+        name: "回答者2の名前",
+        icon: "回答者2"
+      }
+    }
+  ]
+};
+
+const dummyUser = {
+  uuid: "user-1",
+  name: "質問者の名前",
+  icon: "質問者"
+};
+
+// データフェッチ用の関数
+const fetcher = async (url) => {
+  try {
+    const res = await fetch(url);
+    return res.json();
+  } catch (e) {
+    return null;
+  }
+};
+
+const CommentForm = ({ uuid }) => {
+  const { data: questionData } = useSWR(`/api/questions/${uuid}`, fetcher, {
+    fallbackData: dummyQuestion,
+  });
+  const { data: userData } = useSWR(`/api/users/me`, fetcher, {
+    fallbackData: dummyUser,
+  });
+
+  const [answer, setAnswer] = useState("");
+
+  const handleAnswerSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`/api/questions/${uuid}/answers`, { body: answer });
+      setAnswer("");
+    } catch (error) {
+      console.error('Error submitting answer:', error);
+    }
+  };
+
+  const handleResolve = async () => {
+    try {
+      await axios.patch(`/api/questions/${uuid}/resolve`);
+      if (questionData) {
+        questionData.isResolved = true;
+      }
+    } catch (error) {
+      console.error('Error resolving question:', error);
+    }
+  };
+
+  if (!questionData || !userData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container mx-auto p-4">
       <div
         className={`relative rounded-lg bg-white p-4 shadow-md ${
-          user.id === question.authorId ? "ml-20" : "mr-20"
+          userData.uuid === questionData.user.uuid ? "ml-20" : "mr-20"
         }`}
       >
         <div
           className={`absolute ${
-            user.id === question.authorId ? "top-0" : "top-0"
+            userData.uuid === questionData.user.uuid ? "top-0" : "top-0"
           } ${
-            user.id === question.authorId
+            userData.uuid === questionData.user.uuid
               ? "-left-12 -translate-x-full"
               : "-right-12 translate-x-full"
           } flex size-14 items-center justify-center rounded-full bg-gray-300`}
         >
           <span className="text-xs text-gray-600">
-            {user.id === question.authorId
-              ? dummyQuestion.userIcon
-              : dummyAnswer.userIcon}
+            {userData.uuid === questionData.user.uuid
+              ? questionData.user.icon
+              : "回答者"}
           </span>
         </div>
         <div
           className={`absolute top-10 ${
-            user.id === question.authorId ? "left-0" : "right-0"
+            userData.uuid === questionData.user.uuid ? "left-0" : "right-0"
           } ${
-            user.id === question.authorId
+            userData.uuid === questionData.user.uuid
               ? "-translate-x-full"
               : "translate-x-full"
           } h-6 w-8 bg-white`}
           style={{
             clipPath:
-              user.id === question.authorId
+              userData.uuid === questionData.user.uuid
                 ? "polygon(0 0, 100% 0, 100% 100%)"
                 : "polygon(0 0, 100% 0, 0 100%)",
           }}
@@ -59,7 +151,7 @@ const CommentForm = ({
           >
             送信する
           </button>
-          {user.id === question.authorId && !isResolved && (
+          {userData.uuid === questionData.user.uuid && !questionData.isResolved && (
             <button
               type="button"
               onClick={handleResolve}
