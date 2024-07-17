@@ -1,12 +1,12 @@
+import AnswererComment from './answererComment';
+import CommentForm from './commentForms';
+import CommentsSection from './commentsSection';
 import Pagination from "./pagination";
+import QuestionDetail from './questionDetail';
 import QuestionList from "./questionList";
 import QuestionerComment from './questionerComment';
-import AnswererComment from './answererComment';
-import CommentsSection from './commentsSection';
-import QuestionDetail from './questionDetail';
 import ResolvedStatus from './resolvedStatus';
 import UnresolvedStatus from './unresolvedStatus';
-import CommentForm from './commentForms';
 
 export {
   Pagination,
