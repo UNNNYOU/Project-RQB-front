@@ -5,7 +5,7 @@ import { currentUserState } from "@/features/auth/api";
 
 export default function CommonRoot({ children }) {
   const currentUser = useRecoilValue(currentUserState);
-  const auth = currentUser.name === null ? false : true;
+  const auth = currentUser.uuid === null ? false : true;
 
   return (
     <>

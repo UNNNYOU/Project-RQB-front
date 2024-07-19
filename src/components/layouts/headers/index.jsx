@@ -16,7 +16,7 @@ export default function Headers() {
       </h1>
       <nav className="relative w-full bg-white px-2">
         <ul className="flex w-full items-center justify-end py-4 text-xs md:text-base">
-          {!currentUser.github_uid ? (
+          {!currentUser.uuid ? (
             <li>
               <Link
                 href={Routes.login}
