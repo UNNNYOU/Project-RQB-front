@@ -28,7 +28,7 @@ export default function Headers() {
           ) : (
             <li>
               <Link
-                href={Routes.user("uuid")}
+                href={Routes.user(currentUser.uuid)}
                 className="px-2 py-4 transition-all  hover:bg-runteq-primary hover:text-white md:px-4"
               >
                 ユーザーページ

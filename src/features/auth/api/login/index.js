@@ -16,8 +16,9 @@ const Login = () => {
     const token = params.get("token");
     if (token) {
       setAccessToken(token);
-      fetcher(`${Settings.API_URL}/login`).then((data) => {
+      fetcher(`${Settings.API_URL}/auth/me`).then((data) => {
         setCurrentUser({
+          uuid: data.current_user.uuid,
           name: data.current_user.name,
           github_uid: data.current_user.github_uid,
           term: data.current_user.term,
