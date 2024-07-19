@@ -1,7 +1,11 @@
+"use client";
+import { useRecoilValue } from "recoil";
 import { Asides, Footers } from "@/components/layouts";
+import { currentUserState } from "@/features/auth/api";
 
 export default function CommonRoot({ children }) {
-  const auth = true; // TODO : 認証状態
+  const currentUser = useRecoilValue(currentUserState);
+  const auth = currentUser.name === null ? false : true;
 
   return (
     <>
