@@ -1,8 +1,15 @@
-export default function Question({ params: { uuid } }) {
-  console.log(uuid);
+"use client";
+
+import * as Questions from "@/features/questions/components";
+
+export default function QuestionPage({ params }) {
+  const { uuid } = params;
+
   return (
     <article>
-      <h1>質問詳細＆回答ページ</h1>
+      <Questions.QuestionDetail uuid={uuid} />
+      <Questions.CommentsSection uuid={uuid} />
+      <Questions.CommentForm uuid={uuid} />
     </article>
   );
 }
