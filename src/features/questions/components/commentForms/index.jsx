@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import useSWR from 'swr';
+import * as Questions from "@/features/questions/components";
 
 // ダミーデータ
 const dummyQuestion = {
@@ -14,7 +15,7 @@ const dummyQuestion = {
   user: {
     uuid: "user-1",
     name: "質問者の名前",
-    icon: "質問者"
+    avatar: ""
   },
   comments: [
     {
@@ -24,7 +25,7 @@ const dummyQuestion = {
       author: {
         uuid: "user-2",
         name: "回答者1の名前",
-        icon: "回答者1"
+        avatar: ""
       }
     },
     {
@@ -34,7 +35,7 @@ const dummyQuestion = {
       author: {
         uuid: "user-1",
         name: "質問者の名前",
-        icon: "質問者"
+        avatar: ""
       }
     },
     {
@@ -44,7 +45,7 @@ const dummyQuestion = {
       author: {
         uuid: "user-3",
         name: "回答者2の名前",
-        icon: "回答者2"
+        avatar: ""
       }
     }
   ]
@@ -53,7 +54,7 @@ const dummyQuestion = {
 const dummyUser = {
   uuid: "user-1",
   name: "質問者の名前",
-  icon: "質問者"
+  avatar: ""
 };
 
 // データフェッチ用の関数
@@ -119,8 +120,8 @@ const CommentForm = ({ uuid }) => {
         >
           <span className="text-xs text-gray-600">
             {userData.uuid === questionData.user.uuid
-              ? questionData.user.icon
-              : "回答者"}
+              ? <Questions.UserAvatar userId={questionData?.user?.uuid} />
+              : <Questions.UserAvatar userId={CommentForm?.user?.uuid} />}
           </span>
         </div>
         <div

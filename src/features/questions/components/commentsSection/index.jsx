@@ -10,7 +10,7 @@ const dummyComments = [
     author: {
       uuid: "user-2",
       name: "回答者1の名前",
-      icon: "回答者1"
+      avatar: ""
     }
   },
   {
@@ -20,7 +20,7 @@ const dummyComments = [
     author: {
       uuid: "user-1",
       name: "質問者の名前",
-      icon: "質問者"
+      avatar: ""
     }
   },
   {
@@ -30,7 +30,7 @@ const dummyComments = [
     author: {
       uuid: "user-3",
       name: "回答者2の名前",
-      icon: "回答者2"
+      avatar: ""
     }
   }
 ];

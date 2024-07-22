@@ -7,6 +7,7 @@ import QuestionList from "./questionList";
 import QuestionerComment from './questionerComment';
 import ResolvedStatus from './resolvedStatus';
 import UnresolvedStatus from './unresolvedStatus';
+import UserAvatar from './userAvatar';
 
 export {
   Pagination,
@@ -18,4 +19,5 @@ export {
   ResolvedStatus,
   UnresolvedStatus,
   CommentForm,
+  UserAvatar,
 };

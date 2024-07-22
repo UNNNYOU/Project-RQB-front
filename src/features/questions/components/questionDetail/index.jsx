@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 import * as Questions from "@/features/questions/components";
 
 const dummyQuestion = {
@@ -12,8 +12,8 @@ const dummyQuestion = {
   user: {
     uuid: "user-1",
     name: "質問者の名前",
-    icon: "質問者"
-  }
+    avatar: "",
+  },
 };
 
 const fetcher = async (url) => {
@@ -43,9 +43,7 @@ const QuestionDetail = ({ uuid }) => {
       )}
       <div className="rounded-lg bg-white p-6 shadow-md">
         <div className="mb-4 flex flex-col sm:flex-row">
-          <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-gray-300">
-            <span className="text-xs text-gray-600">{questionData.user.icon}</span>
-          </div>
+          <Questions.UserAvatar userId={questionData?.user?.uuid} />
           <div className="ml-0 mt-4 flex w-full flex-col sm:ml-8 sm:mt-0">
             <h1 className="text-2xl font-bold">{questionData.title}</h1>
             <div className="mb-2 mt-4 flex w-full flex-wrap border-b border-gray-300 pb-2 sm:mt-8">
