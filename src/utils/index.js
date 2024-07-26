@@ -1,3 +1,4 @@
 import { cn } from "./cn";
+import { resizeTextArea } from "./resizeTextarea";
 
-export { cn };
+export { cn, resizeTextArea };
