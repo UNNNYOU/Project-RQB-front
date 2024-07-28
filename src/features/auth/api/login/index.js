@@ -16,13 +16,13 @@ const Login = () => {
     const token = params.get("token");
     if (token) {
       setAccessToken(token);
-      fetcher(`${Settings.API_URL}/auth/me`).then((data) => {
+      fetcher(`${Settings.API_URL}/auth/me`).then((current_user) => {
         setCurrentUser({
-          uuid: data.current_user.uuid,
-          name: data.current_user.name,
-          github_uid: data.current_user.github_uid,
-          term: data.current_user.term,
-          profile: data.current_user.profile,
+          uuid: current_user.uuid,
+          name: current_user.name,
+          github_uid: current_user.github_uid,
+          term: current_user.term,
+          profile: current_user.profile,
         });
       });
     }
