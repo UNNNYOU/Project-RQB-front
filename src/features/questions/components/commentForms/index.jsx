@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import useSWR from 'swr';
+// import axios from "axios";
+import React, { useState } from "react";
+import useSWR from "swr";
 
 // ダミーデータ
 const dummyQuestion = {
@@ -14,7 +14,7 @@ const dummyQuestion = {
   user: {
     uuid: "user-1",
     name: "質問者の名前",
-    icon: "質問者"
+    icon: "質問者",
   },
   comments: [
     {
@@ -24,8 +24,8 @@ const dummyQuestion = {
       author: {
         uuid: "user-2",
         name: "回答者1の名前",
-        icon: "回答者1"
-      }
+        icon: "回答者1",
+      },
     },
     {
       id: 2,
@@ -34,8 +34,8 @@ const dummyQuestion = {
       author: {
         uuid: "user-1",
         name: "質問者の名前",
-        icon: "質問者"
-      }
+        icon: "質問者",
+      },
     },
     {
       id: 3,
@@ -44,16 +44,16 @@ const dummyQuestion = {
       author: {
         uuid: "user-3",
         name: "回答者2の名前",
-        icon: "回答者2"
-      }
-    }
-  ]
+        icon: "回答者2",
+      },
+    },
+  ],
 };
 
 const dummyUser = {
   uuid: "user-1",
   name: "質問者の名前",
-  icon: "質問者"
+  icon: "質問者",
 };
 
 // データフェッチ用の関数
@@ -79,21 +79,21 @@ const CommentForm = ({ uuid }) => {
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/questions/${uuid}/answers`, { body: answer });
+      // await axios.post(`/api/questions/${uuid}/answers`, { body: answer });
       setAnswer("");
     } catch (error) {
-      console.error('Error submitting answer:', error);
+      console.error("Error submitting answer:", error);
     }
   };
 
   const handleResolve = async () => {
     try {
-      await axios.patch(`/api/questions/${uuid}/resolve`);
+      // await axios.patch(`/api/questions/${uuid}/resolve`);
       if (questionData) {
         questionData.isResolved = true;
       }
     } catch (error) {
-      console.error('Error resolving question:', error);
+      console.error("Error resolving question:", error);
     }
   };
 
@@ -151,15 +151,16 @@ const CommentForm = ({ uuid }) => {
           >
             送信する
           </button>
-          {userData.uuid === questionData.user.uuid && !questionData.isResolved && (
-            <button
-              type="button"
-              onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
-            >
-              解決済みにする
-            </button>
-          )}
+          {userData.uuid === questionData.user.uuid &&
+            !questionData.isResolved && (
+              <button
+                type="button"
+                onClick={handleResolve}
+                className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
+              >
+                解決済みにする
+              </button>
+            )}
         </form>
       </div>
     </div>
