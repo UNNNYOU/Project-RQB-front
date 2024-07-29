@@ -13,7 +13,7 @@ export default function QuestionNew() {
 
   const Submit = () => {
     const token = localStorage.getItem("token");
-    const resoponse = fetch(`${Settings.API_URL}/question`, {
+    const resoponse = fetch(`${Settings.API_URL}/questions`, {
       method: "POST",
       headers: {
         "Content-Type": "application",
