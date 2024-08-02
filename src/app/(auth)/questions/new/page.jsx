@@ -1,5 +1,5 @@
 "use client";
-import { Settings } from "lucide-react";
+import { Settings } from "@/config";
 import { useRecoilValue } from "recoil";
 import {
   questionTitleState,
