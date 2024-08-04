@@ -2,44 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useSWR from "swr";
-import { Routes } from "@/config";
-
-const Data = Array.from({ length: 10 }, (_, i) => ({
-  uuid: `uuid${i}`,
-  title: "redirect_toで編集画面への遷移がDELETEメソッドになってしまう",
-  content:
-    "ダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキストダミーテキスト",
-  solved: i % 2 === 0,
-  tags: ["Ruby", "Rails"],
-  date: "2024/06/27 21:47",
-  user: {
-    name: "名前",
-    avatar: "",
-    uuid: `uuid${i}`,
-  },
-}));
-
-const fetcher = async (url) => {
-  try {
-    const res = await fetch(url);
-
-    return res.json();
-  } catch (e) {
-    return Data;
-  }
-};
+import { QuestionStatus, Routes } from "@/config";
+import { useFetchData } from "@/lib";
 
 export default function QuestionList({ url }) {
-  // TODO : 初期値はダミーデータ
-  const { data } = useSWR(url, fetcher, {
-    fallbackData: Data,
-    onErrorRetry: (error) => {
-      if (error.status === 404) {
-        return;
-      }
-    },
-  });
+  const data = useFetchData(url);
 
   // TODO : ローディング表示
   if (!data) return <div>loading...</div>;
@@ -50,7 +17,7 @@ export default function QuestionList({ url }) {
         {data.map((question, index) => (
           <section
             key={index}
-            className={`flex items-start justify-center gap-2 py-4 ${index != Data.length - 1 && "border-b border-slate-300"}`}
+            className={`flex items-start justify-center gap-2 py-4 ${index != data.length - 1 && "border-b border-slate-300"}`}
           >
             <div className="flex flex-col items-center justify-center gap-1">
               <Link
@@ -89,12 +56,12 @@ export default function QuestionList({ url }) {
               </p>
               <div className="mt-2 md:flex md:items-end md:justify-between">
                 <div className="mb-2 flex items-center justify-start gap-1 text-sm">
-                  {question.solved && (
+                  {question.status === QuestionStatus.CLOSE && (
                     <span className="rounded bg-sky-400 px-2 py-1 text-white">
                       解決済み
                     </span>
                   )}
-                  {question.tags.map((tag) => (
+                  {question.tags?.map((tag) => (
                     <Link
                       key={tag}
                       href={`${Routes.questions}?tag=${tag}`}
