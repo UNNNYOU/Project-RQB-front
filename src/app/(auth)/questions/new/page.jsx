@@ -1,18 +1,13 @@
-"use client";
+'use client';
 import { Settings } from "@/config";
-import { useRecoilValue } from "recoil";
-import {
-  questionTitleState,
-  questionBodyState,
-} from "@/features/questions/api";
 import { QuestionTitle, QuestionBody } from "@/features/questions/components";
 
 export default function QuestionNew() {
-  const title = useRecoilValue(questionTitleState);
-  const body = useRecoilValue(questionBodyState);
-
-  const Submit = () => {
+  const Submit = (formData) => {
     const token = localStorage.getItem("token");
+    const title = formData.get("questionTitle");
+    const body = formData.get("questionBody");
+
     const resoponse = fetch(`${Settings.API_URL}/questions`, {
       method: "POST",
       headers: {

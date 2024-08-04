@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { currentUserState } from "@/features/auth/api";
-import { questionTitleState } from "@/features/questions/api";
 
 export default function QuestionTitle() {
   const currentUser = useRecoilValue(currentUserState);
-  const setTitle = useSetRecoilState(questionTitleState);
 
   return (
     <div className="flex items-center rounded-lg bg-white p-4">
@@ -28,8 +26,8 @@ export default function QuestionTitle() {
         <input
           type="text"
           placeholder="タイトル"
+          name="questionTitle"
           className="w-full flex-1 rounded border-b border-gray-200 px-4 py-2 outline-none lg:text-xl"
-          onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"

@@ -1,16 +1,13 @@
 "use client";
 import "zenn-content-css";
-import "zenn-embed-elements";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import { RiQuestionFill } from "rocketicons/ri";
 import markdownToHtml from "zenn-markdown-html";
-import { questionBodyState } from "@/features/questions/api";
 import { resizeTextArea } from "@/utils";
 
 export default function QuestionBody() {
-  const [body, setBody] = useRecoilState(questionBodyState);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const [body, setBody] = useState("");
 
   const html = markdownToHtml(body, {
     embedOrigin: "https://embed.zenn.studio",
@@ -20,7 +17,7 @@ export default function QuestionBody() {
     import("zenn-embed-elements");
   }, []);
 
-  const handlePreview = () => {
+  const togglePreview = () => {
     setIsPreviewVisible(!isPreviewVisible);
   };
 
@@ -32,17 +29,18 @@ export default function QuestionBody() {
         <textarea
           placeholder="質問内容"
           className="size-full resize-none border-none bg-gray-100 p-2 outline-none"
+          name="questionBody"
           onChange={(e) => {
             resizeTextArea(e);
             setBody(e.target.value);
           }}
         />
         <div className="flex w-full justify-center gap-2 border-t border-gray-700 px-4 py-2">
-          <button className="w-auto rounded-xl bg-blue-500 px-4 py-1 text-sm text-white">
+          <button type="submit" className="w-auto rounded-xl bg-blue-500 px-4 py-1 text-sm text-white">
             投稿
           </button>
           <button
-            onClick={handlePreview}
+            onClick={togglePreview}
             className="w-auto rounded-xl bg-gray-500 px-4 py-1 text-sm text-white lg:hidden"
           >
             プレビュー
@@ -64,7 +62,7 @@ export default function QuestionBody() {
           />
           <div className="flex w-full justify-center border-t border-gray-700 px-4 py-2 lg:hidden">
             <button
-              onClick={handlePreview}
+              onClick={togglePreview}
               className="rounded-xl bg-gray-500 px-4 py-1 text-sm text-white"
             >
               戻る
