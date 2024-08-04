@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 import * as Questions from "@/features/questions/components";
 
 // ダミーデータ
@@ -10,8 +10,8 @@ const dummyComments = [
     author: {
       uuid: "user-2",
       name: "回答者1の名前",
-      icon: "回答者1"
-    }
+      icon: "回答者1",
+    },
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const dummyComments = [
     author: {
       uuid: "user-1",
       name: "質問者の名前",
-      icon: "質問者"
-    }
+      icon: "質問者",
+    },
   },
   {
     id: 3,
@@ -30,9 +30,9 @@ const dummyComments = [
     author: {
       uuid: "user-3",
       name: "回答者2の名前",
-      icon: "回答者2"
-    }
-  }
+      icon: "回答者2",
+    },
+  },
 ];
 
 // データフェッチ用の関数
@@ -46,9 +46,13 @@ const fetcher = async (url) => {
 };
 
 const CommentsSection = ({ uuid }) => {
-  const { data: commentsData } = useSWR(`/api/questions/${uuid}/comments`, fetcher, {
-    fallbackData: dummyComments,
-  });
+  const { data: commentsData } = useSWR(
+    `/api/questions/${uuid}/comments`,
+    fetcher,
+    {
+      fallbackData: dummyComments,
+    },
+  );
 
   const { data: questionData } = useSWR(`/api/questions/${uuid}`, fetcher, {
     fallbackData: {
