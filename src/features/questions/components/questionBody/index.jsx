@@ -29,7 +29,7 @@ export default function QuestionBody() {
         <textarea
           placeholder="質問内容"
           className="resize-none border-none bg-gray-100 p-2 outline-none"
-          rows = "12"
+          rows="12"
           name="questionBody"
           onChange={(e) => {
             resizeTextArea(e);
@@ -37,7 +37,10 @@ export default function QuestionBody() {
           }}
         />
         <div className="flex w-full justify-center gap-2 border-t border-gray-700 px-4 py-2">
-          <button type="submit" className="w-auto rounded-xl bg-blue-500 px-4 py-1 text-sm text-white">
+          <button
+            type="submit"
+            className="w-auto rounded-xl bg-blue-500 px-4 py-1 text-sm text-white"
+          >
             投稿
           </button>
           <button

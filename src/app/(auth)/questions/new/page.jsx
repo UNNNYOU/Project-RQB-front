@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Settings } from "@/config";
 import { QuestionTitle, QuestionBody } from "@/features/questions/components";
 
