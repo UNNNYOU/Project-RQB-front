@@ -28,7 +28,8 @@ export default function QuestionBody() {
       >
         <textarea
           placeholder="質問内容"
-          className="size-full resize-none border-none bg-gray-100 p-2 outline-none"
+          className="resize-none border-none bg-gray-100 p-2 outline-none"
+          rows = "12"
           name="questionBody"
           onChange={(e) => {
             resizeTextArea(e);
