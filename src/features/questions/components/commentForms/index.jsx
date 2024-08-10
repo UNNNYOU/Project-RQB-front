@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import useSWR from 'swr';
 import * as Questions from "@/features/questions/components";
@@ -80,21 +79,29 @@ const CommentForm = ({ uuid }) => {
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/questions/${uuid}/answers`, { body: answer });
+      await fetch(`/api/questions/${uuid}/answers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ body: answer }),
+      });
       setAnswer("");
     } catch (error) {
-      console.error('Error submitting answer:', error);
+      console.error("Error submitting answer:", error);
     }
   };
 
   const handleResolve = async () => {
     try {
-      await axios.patch(`/api/questions/${uuid}/resolve`);
+      await fetch(`/api/questions/${uuid}/resolve`, {
+        method: 'PATCH',
+      });
       if (questionData) {
         questionData.isResolved = true;
       }
     } catch (error) {
-      console.error('Error resolving question:', error);
+      console.error("Error resolving question:", error);
     }
   };
 
@@ -152,15 +159,16 @@ const CommentForm = ({ uuid }) => {
           >
             送信する
           </button>
-          {userData.uuid === questionData.user.uuid && !questionData.isResolved && (
-            <button
-              type="button"
-              onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
-            >
-              解決済みにする
-            </button>
-          )}
+          {userData.uuid === questionData.user.uuid &&
+            !questionData.isResolved && (
+              <button
+                type="button"
+                onClick={handleResolve}
+                className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
+              >
+                解決済みにする
+              </button>
+            )}
         </form>
       </div>
     </div>

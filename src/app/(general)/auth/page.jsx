@@ -1,19 +1,5 @@
-"use client";
-import { useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
-import { useAuth } from "@/hooks/useAuth";
-
-const Login = () => {
-  const params = useSearchParams();
-  const { setAccessToken } = useAuth();
-
-  useEffect(() => {
-    const token = params.get("token");
-    if (token) setAccessToken(token);
-  }, [params, setAccessToken]);
-
-  return null;
-};
+import { Suspense } from "react";
+import { Login } from "@/features/auth/api";
 
 export default function Auth() {
   return (

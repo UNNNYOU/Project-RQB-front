@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 import * as Questions from "@/features/questions/components";
 
 // ダミーデータ
@@ -46,9 +46,13 @@ const fetcher = async (url) => {
 };
 
 const CommentsSection = ({ uuid }) => {
-  const { data: commentsData } = useSWR(`/api/questions/${uuid}/comments`, fetcher, {
-    fallbackData: dummyComments,
-  });
+  const { data: commentsData } = useSWR(
+    `/api/questions/${uuid}/comments`,
+    fetcher,
+    {
+      fallbackData: dummyComments,
+    },
+  );
 
   const { data: questionData } = useSWR(`/api/questions/${uuid}`, fetcher, {
     fallbackData: {
