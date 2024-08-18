@@ -17,11 +17,10 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const QuestionsPage = () => {
   const params = useSearchParams();
   const router = useRouter();
-  const page = params.get("page") || 1;
+  const currentPage = params.get("page") || 1;
   const nextParams = new URLSearchParams(params);
-  nextParams.set("page", Number(page) + 1);
-  // TODO : 質問の総数を取得する。API側のURLは仮
-  const { data } = useSWR(`${Settings.API_URL}/questions_count`, fetcher, {
+  nextParams.set("page", Number(currentPage) + 1);
+  const { data } = useSWR(`${Settings.API_URL}/questions/all_count`, fetcher, {
     fallbackData: { count: 500 },
     onErrorRetry: (error) => {
       if (error.status === 404) {
@@ -97,7 +96,7 @@ const QuestionsPage = () => {
         />
       </article>
 
-      <Pagination />
+      <Pagination currentPage={Number(currentPage)} totalPage={Math.ceil(105 / 10)} />
 
       <div className="hidden">
         <QuestionList
