@@ -1,11 +1,11 @@
 import * as Questions from "@/features/questions/components";
 
-const AnswererComment = ({ comment }) => {
+const AnswererComment = ({ comment, html }) => {
   return (
     <div className="container mx-auto p-4">
       <div className="relative mr-20 rounded-lg bg-white p-4 shadow-md">
         <div className="absolute -right-12 top-0 flex size-14 translate-x-full">
-        <Questions.UserAvatar userId={AnswererComment?.user?.uuid} />
+          <Questions.UserAvatar userId={comment.author.uuid} />
         </div>
         <div
           className="absolute right-0 top-8 h-6 w-8 translate-x-full bg-white"
@@ -15,7 +15,12 @@ const AnswererComment = ({ comment }) => {
         <p className="text-sm text-gray-600">
           {new Date(comment.createdAt).toLocaleString()}
         </p>
-        <p className="mt-2">{comment.bodyText}</p>
+        <div
+          className="znc h-full p-2"
+          dangerouslySetInnerHTML={{
+            __html: html,
+          }}
+        />
       </div>
     </div>
   );
