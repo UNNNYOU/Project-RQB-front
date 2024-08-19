@@ -2,12 +2,17 @@ import AnswererComment from "./answererComment";
 import CommentForm from "./commentForms";
 import CommentsSection from "./commentsSection";
 import Pagination from "./pagination";
+import QuestionBody from "./questionBody";
 import QuestionDetail from "./questionDetail";
 import QuestionList from "./questionList";
 import QuestionerComment from './questionerComment';
 import ResolvedStatus from './resolvedStatus';
 import UnresolvedStatus from './unresolvedStatus';
 import UserAvatar from './userAvatar';
+import QuestionTitle from "./questionTitle";
+import QuestionerComment from "./questionerComment";
+import ResolvedStatus from "./resolvedStatus";
+import UnresolvedStatus from "./unresolvedStatus";
 
 export {
   Pagination,
@@ -20,4 +25,6 @@ export {
   UnresolvedStatus,
   CommentForm,
   UserAvatar,
+  QuestionTitle,
+  QuestionBody,
 };

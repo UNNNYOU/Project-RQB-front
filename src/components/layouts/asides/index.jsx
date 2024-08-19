@@ -5,7 +5,7 @@ import { Routes } from "@/config";
 
 export default function Asides() {
   return (
-    <aside className="fixed bottom-0 left-0 w-full bg-white md:relative md:my-8 md:w-1/4 md:bg-transparent">
+    <aside className="fixed bottom-0 left-0 z-10 w-full bg-white md:relative md:my-8 md:w-1/4 md:bg-transparent">
       <div>
         <nav>
           <ul className="flex items-center justify-center gap-8 md:flex-col-reverse">

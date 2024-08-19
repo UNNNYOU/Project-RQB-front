@@ -21,7 +21,10 @@
     "rocketicons": "^0.2.7",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zenn-content-css": "^0.1.154",
+    "zenn-embed-elements": "^0.1.154",
+    "zenn-markdown-html": "^0.1.154"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.7",
