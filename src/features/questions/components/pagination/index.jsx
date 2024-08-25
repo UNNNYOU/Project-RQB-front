@@ -32,30 +32,46 @@ export default function Pagination({ currentPage, totalPage }) {
             >
               前へ
             </button>
-            {
-              5 < currentPage && (
-                <button
-                  className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600"
-                  disabled
-                >
-                  ...
-                </button>
-              )
-            }
+            {5 < currentPage && (
+              <button
+                className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600"
+                disabled
+              >
+                ...
+              </button>
+            )}
           </>
         )}
 
         {/* ページ番号ボタン */}
-        {Array.from({ length: Math.min(10, totalPage) }, (_, i) => {
-          const page = currentPage - 2 + i;
+        {Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
+          const page = currentPage - 4 + i;
           if (page > 0 && page <= totalPage) {
             return (
               <button
                 key={page}
                 onClick={() => handleClickPage(page)}
-                className={`border border-r-0 border-slate-400 px-3 py-2 ${currentPage === page ? "cursor-auto bg-runteq-secondary font-bold text-white" : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
-                  } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
+                className={`border border-r-0 border-slate-400 px-3 py-2 ${
+                  currentPage === page
+                    ? "cursor-auto bg-runteq-secondary font-bold text-white"
+                    : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
+                } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
                 disabled={currentPage === page}
+              >
+                {page}
+              </button>
+            );
+          }
+          return null;
+        })}
+        {Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
+          const page = currentPage + i;
+          if (page > currentPage && page <= totalPage) {
+            return (
+              <button
+                key={page}
+                onClick={() => handleClickPage(page)}
+                className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
               >
                 {page}
               </button>
@@ -67,16 +83,14 @@ export default function Pagination({ currentPage, totalPage }) {
         {/* 次へと最後のボタン */}
         {currentPage < totalPage && (
           <>
-            {
-              currentPage + 5 < totalPage && (
-                <button
-                  className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600"
-                  disabled
-                >
-                  ...
-                </button>
-              )
-            }
+            {currentPage + 5 <= totalPage && (
+              <button
+                className="border border-r-0 border-slate-400 bg-white px-3 py-2 text-gray-600"
+                disabled
+              >
+                ...
+              </button>
+            )}
             <button
               onClick={() => handleClickPage(currentPage + 1)}
               className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
