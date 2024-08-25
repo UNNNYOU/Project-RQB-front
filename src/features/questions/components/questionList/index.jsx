@@ -10,6 +10,7 @@ export default function QuestionList({ url }) {
 
   // TODO : ローディング表示
   if (!data) return <div>loading...</div>;
+  if (data.length === 0) return <div>質問がありません</div>;
 
   return (
     <>
