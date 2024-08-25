@@ -2,33 +2,38 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import useSWR from "swr";
+import { Suspense, useEffect } from "react";
 import { Routes, Settings } from "@/config";
 import { Pagination, QuestionList } from "@/features/questions/components";
+import { useFetchData } from "@/lib";
 
 const OrderBy = {
   NEW: "new",
   OLD: "old",
 };
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 const QuestionsPage = () => {
   const params = useSearchParams();
   const router = useRouter();
-  const page = params.get("page") || 1;
+  const currentPage = params.get("page") || 1;
   const nextParams = new URLSearchParams(params);
-  nextParams.set("page", Number(page) + 1);
-  // TODO : 質問の総数を取得する。API側のURLは仮
-  const { data } = useSWR(`${Settings.API_URL}/questions_count`, fetcher, {
-    fallbackData: { count: 500 },
-    onErrorRetry: (error) => {
-      if (error.status === 404) {
-        return;
-      }
-    },
-  });
+  nextParams.set("page", Number(currentPage) + 1);
+  const data = useFetchData(`${Settings.API_URL}/questions/all_count`);
+  const PER_PAGE = 10;
+  const TOTAL_PAGE = Math.ceil(data?.count / PER_PAGE);
+
+  useEffect(() => {
+    if (!params.get("page") || !data) return;
+
+    const query = new URLSearchParams(params);
+    if (Number(params.get("page")) > TOTAL_PAGE) {
+      query.set("page", TOTAL_PAGE);
+      router.push(`${Routes.questions}?${query.toString()}`);
+    } else if (Number(params.get("page")) <= 1) {
+      query.delete("page");
+      router.push(`${Routes.questions}?${query.toString()}`);
+    }
+  }, [params, router, data, TOTAL_PAGE]);
 
   const handleOrderBy = (e) => {
     const query = new URLSearchParams(params);
@@ -61,7 +66,7 @@ const QuestionsPage = () => {
             </Link>
           </div>
           <div className="flex w-full items-center justify-between ">
-            <p className="text-sm">{data.count}件の質問</p>
+            <p className="text-sm">{data?.count}件の質問</p>
             <div
               id="question-order"
               className="flex items-center justify-center gap-2 rounded border border-slate-400 bg-white px-2 py-1 text-sm"
@@ -92,18 +97,22 @@ const QuestionsPage = () => {
           </div>
         </div>
 
-        <QuestionList
-          url={`${Settings.API_URL}/questions?${params.toString()}`}
-        />
+        {currentPage > 0 && currentPage <= TOTAL_PAGE && (
+          <QuestionList
+            url={`${Settings.API_URL}/questions?${params.toString()}`}
+          />
+        )}
       </article>
 
-      <Pagination />
+      <Pagination currentPage={Number(currentPage)} totalPage={TOTAL_PAGE} />
 
-      <div className="hidden">
-        <QuestionList
-          url={`${Settings.API_URL}/questions?${nextParams.toString()}`}
-        />
-      </div>
+      {currentPage < TOTAL_PAGE && (
+        <div className="hidden">
+          <QuestionList
+            url={`${Settings.API_URL}/questions?${nextParams.toString()}`}
+          />
+        </div>
+      )}
     </>
   );
 };
