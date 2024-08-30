@@ -16,24 +16,39 @@ const QuestionsPage = () => {
   const params = useSearchParams();
   const router = useRouter();
   const currentPage = params.get("page") || 1;
+  const currentOrder = params.get("order") || OrderBy.NEW;
   const nextParams = new URLSearchParams(params);
   nextParams.set("page", Number(currentPage) + 1);
-  const data = useFetchData(`${Settings.API_URL}/questions/all_count`);
+  nextParams.set("order", currentOrder);
+  const allCount = useFetchData(`${Settings.API_URL}/questions/all_count`);
   const PER_PAGE = 10;
-  const TOTAL_PAGE = Math.ceil(data?.count / PER_PAGE);
+  const TOTAL_PAGE = Math.ceil(allCount?.count / PER_PAGE);
 
   useEffect(() => {
-    if (!params.get("page") || !data) return;
+    const page = params.get("page");
+    const order = params.get("order");
+    if (!(page && order)) return;
 
     const query = new URLSearchParams(params);
-    if (Number(params.get("page")) > TOTAL_PAGE) {
-      query.set("page", TOTAL_PAGE);
-      router.push(`${Routes.questions}?${query.toString()}`);
-    } else if (Number(params.get("page")) <= 1) {
-      query.delete("page");
-      router.push(`${Routes.questions}?${query.toString()}`);
+    if (page) {
+      const pageNumber = Number(params.get("page"));
+      if (pageNumber >= TOTAL_PAGE) {
+        query.set("page", TOTAL_PAGE);
+      } else if (pageNumber <= 1) {
+        query.delete("page");
+      }
     }
-  }, [params, router, data, TOTAL_PAGE]);
+
+    if (order) {
+      if (order === OrderBy.NEW) {
+        query.delete("order");
+      } else {
+        query.set("order", OrderBy.OLD);
+      }
+    }
+
+    router.push(`${Routes.questions}?${query.toString()}`);
+  }, [params, router, allCount, TOTAL_PAGE]);
 
   const handleOrderBy = (e) => {
     const query = new URLSearchParams(params);
@@ -66,7 +81,7 @@ const QuestionsPage = () => {
             </Link>
           </div>
           <div className="flex w-full items-center justify-between ">
-            <p className="text-sm">{data?.count}件の質問</p>
+            <p className="text-sm">{allCount?.count}件の質問</p>
             <div
               id="question-order"
               className="flex items-center justify-center gap-2 rounded border border-slate-400 bg-white px-2 py-1 text-sm"
