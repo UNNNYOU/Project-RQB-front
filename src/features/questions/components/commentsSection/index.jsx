@@ -1,28 +1,16 @@
 import { useEffect } from "react";
-import useSWR from "swr";
 import markdownToHtml from "zenn-markdown-html";
 import { Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
-
-const fetcher = async (url) => {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("エラーが発生しました。");
-    return res.json();
-  } catch (e) {
-    return null;
-  }
-};
+import useFetchData from "@/lib/useFetchData";
 
 const CommentsSection = ({ uuid }) => {
-  const { data: questionData, error: questionError } = useSWR(
-    `${Settings.API_URL}/questions/${uuid}`,
-    fetcher
+  const { data: questionData, error: questionError } = useFetchData(
+    `${Settings.API_URL}/questions/${uuid}`
   );
 
-  const { data: commentsData, error: commentsError } = useSWR(
-    `${Settings.API_URL}/questions/${uuid}/answers`,
-    fetcher
+  const { data: commentsData, error: commentsError } = useFetchData(
+    `${Settings.API_URL}/questions/${uuid}/answers`
   );
 
   useEffect(() => {

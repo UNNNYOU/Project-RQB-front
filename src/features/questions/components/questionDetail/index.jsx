@@ -1,23 +1,12 @@
 import { useEffect } from "react";
-import useSWR from "swr";
 import markdownToHtml from "zenn-markdown-html";
 import { Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
-
-const fetcher = async (url) => {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("エラーが発生しました。");
-    return res.json();
-  } catch (e) {
-    return null;
-  }
-};
+import useFetchData from "@/lib/useFetchData";
 
 const QuestionDetail = ({ uuid }) => {
-  const { data: questionData, error } = useSWR(
-    `${Settings.API_URL}/questions/${uuid}`,
-    fetcher
+  const { data: questionData, error } = useFetchData(
+    `${Settings.API_URL}/questions/${uuid}`
   );
 
   useEffect(() => {
@@ -53,11 +42,11 @@ const QuestionDetail = ({ uuid }) => {
                 質問者: {questionData.user.name}
               </p>
               <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
-                質問日時: {new Date(questionData.created_at).toLocaleString()}
+                質問日時: {questionData.created_at}
               </p>
               {/* 将来的に質問を編集する機能ができたら使用 */}
               {/* <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
-                更新日時: {new Date(questionData.updated_at).toLocaleString()}
+                更新日時: {questionData.updated_at}
               </p> */}
             </div>
             <div className="mb-8">

@@ -13,7 +13,7 @@ const QuestionerComment = ({ comment, html }) => {
         ></div>
         <p className="text-sm font-bold text-gray-600">{comment.user.name}</p>
         <p className="text-sm text-gray-600">
-          {new Date(comment.created_at).toLocaleString()}
+          {comment.created_at}
         </p>
         <div
           className="znc h-full p-2"

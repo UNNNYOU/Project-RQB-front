@@ -1,25 +1,14 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import  { mutate } from 'swr';
 import { Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
-
-const fetcher = async (url) => {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("エラーが発生しました。");
-    return res.json();
-  } catch (e) {
-    return null;
-  }
-};
+import useFetchData from "@/lib/useFetchData";
 
 const CommentForm = ({ uuid }) => {
   const router = useRouter();
-  const { data: questionData, error: questionError } = useSWR(
-    `${Settings.API_URL}/questions/${uuid}`,
-    fetcher
-  );
+  
+  const { data: questionData, error: questionError } = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   const [answer, setAnswer] = useState("");
 
