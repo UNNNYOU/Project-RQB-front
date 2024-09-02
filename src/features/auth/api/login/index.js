@@ -9,27 +9,24 @@ import { fetcher } from "@/lib";
 
 const Login = () => {
   const params = useSearchParams();
-  const { setAccessToken, getAccessToken } = useAuth();
+  const { setAccessToken } = useAuth();
   const setCurrentUser = useSetRecoilState(currentUserState);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = params.get("token") || getAccessToken();
-      if (token) {
-        setAccessToken(token);
-        fetcher(`${Settings.API_URL}/auth/me`).then((current_user) => {
-          setCurrentUser({
-            uuid: current_user.uuid,
-            name: current_user.name,
-            github_uid: current_user.github_uid,
-            term: current_user.term,
-            profile: current_user.profile,
-          });
+    const token = params.get("token");
+    if (token) {
+      setAccessToken(token);
+      fetcher(`${Settings.API_URL}/auth/me`).then((current_user) => {
+        setCurrentUser({
+          uuid: current_user.uuid,
+          name: current_user.name,
+          github_uid: current_user.github_uid,
+          term: current_user.term,
+          profile: current_user.profile,
         });
-      }
+      });
     }
-  }, [params, setAccessToken, setCurrentUser, getAccessToken]);
-
+  }, [params, setAccessToken, setCurrentUser]);
   return null;
 };
 
