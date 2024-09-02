@@ -8,13 +8,9 @@ import useFetchData from "@/lib/useFetchData";
 const CommentForm = ({ uuid }) => {
   const router = useRouter();
   
-  const { data: questionData, error: questionError } = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
+  const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   const [answer, setAnswer] = useState("");
-
-  if (questionError) {
-    return <div>エラーが発生しました: {questionError.message}</div>;
-  }
 
   if (!questionData) {
     return <div>Loading...</div>;

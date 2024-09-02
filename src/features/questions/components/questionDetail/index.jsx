@@ -5,17 +5,11 @@ import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
 
 const QuestionDetail = ({ uuid }) => {
-  const { data: questionData, error } = useFetchData(
-    `${Settings.API_URL}/questions/${uuid}`
-  );
+  const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   useEffect(() => {
     import("zenn-embed-elements");
   }, []);
-
-  if (error) {
-    return <div>エラーが発生しました: {error.message}</div>;
-  }
 
   if (!questionData) {
     return <div>Loading...</div>;
