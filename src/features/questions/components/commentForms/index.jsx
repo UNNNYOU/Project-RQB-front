@@ -1,13 +1,13 @@
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import  { mutate } from 'swr';
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { mutate } from "swr";
 import { Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
 
 const CommentForm = ({ uuid }) => {
   const router = useRouter();
-  
+
   const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   const [answer, setAnswer] = useState("");
@@ -21,13 +21,16 @@ const CommentForm = ({ uuid }) => {
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${Settings.API_URL}/questions/${uuid}/answers`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Settings.API_URL}/questions/${uuid}/answers`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ body: answer }),
         },
-        body: JSON.stringify({ body: answer }),
-      });
+      );
 
       if (response.ok) {
         setAnswer("");
@@ -42,16 +45,19 @@ const CommentForm = ({ uuid }) => {
 
   const handleResolve = async () => {
     try {
-      const response = await fetch(`${Settings.API_URL}/questions/${uuid}/close`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Settings.API_URL}/questions/${uuid}/close`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (response.ok) {
         mutate(`${Settings.API_URL}/questions/${uuid}`);
-        router.push('/questions');
+        router.push("/questions");
       } else {
         console.error("質問の解決に失敗しました");
       }
@@ -69,7 +75,9 @@ const CommentForm = ({ uuid }) => {
       >
         <div
           className={`absolute ${
-            isQuestioner ? "-left-12 top-0 -translate-x-full" : "-right-12 top-0 translate-x-full"
+            isQuestioner
+              ? "-left-12 top-0 -translate-x-full"
+              : "-right-12 top-0 translate-x-full"
           } flex size-14 items-center justify-center rounded-full bg-gray-300`}
         >
           <span className="text-xs text-gray-600">
@@ -78,7 +86,9 @@ const CommentForm = ({ uuid }) => {
         </div>
         <div
           className={`absolute top-10 ${
-            isQuestioner ? "left-0 -translate-x-full" : "right-0 translate-x-full"
+            isQuestioner
+              ? "left-0 -translate-x-full"
+              : "right-0 translate-x-full"
           } h-6 w-8 bg-white`}
           style={{
             clipPath: isQuestioner
@@ -99,7 +109,7 @@ const CommentForm = ({ uuid }) => {
           >
             送信する
           </button>
-          {isQuestioner && questionData.status === 'open' && (
+          {isQuestioner && questionData.status === "open" && (
             <button
               type="button"
               onClick={handleResolve}

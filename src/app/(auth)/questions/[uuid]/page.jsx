@@ -1,6 +1,10 @@
 "use client";
 
-import { QuestionDetail, CommentsSection, CommentForm } from "@/features/questions/components";
+import {
+  QuestionDetail,
+  CommentsSection,
+  CommentForm,
+} from "@/features/questions/components";
 
 export default function QuestionPage({ params }) {
   const { uuid } = params;

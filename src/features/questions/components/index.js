@@ -6,10 +6,10 @@ import QuestionBody from "./questionBody";
 import QuestionDetail from "./questionDetail";
 import QuestionList from "./questionList";
 import QuestionTitle from "./questionTitle";
-import QuestionerComment from './questionerComment';
-import ResolvedStatus from './resolvedStatus';
-import UnresolvedStatus from './unresolvedStatus';
-import UserAvatar from './userAvatar';
+import QuestionerComment from "./questionerComment";
+import ResolvedStatus from "./resolvedStatus";
+import UnresolvedStatus from "./unresolvedStatus";
+import UserAvatar from "./userAvatar";
 
 export {
   Pagination,
