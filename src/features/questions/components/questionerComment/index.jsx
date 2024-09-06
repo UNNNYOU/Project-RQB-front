@@ -12,9 +12,7 @@ const QuestionerComment = ({ comment, html }) => {
           style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }}
         ></div>
         <p className="text-sm font-bold text-gray-600">{comment.user.name}</p>
-        <p className="text-sm text-gray-600">
-          {comment.created_at}
-        </p>
+        <p className="text-sm text-gray-600">{comment.created_at}</p>
         <div
           className="znc h-full p-2"
           dangerouslySetInnerHTML={{

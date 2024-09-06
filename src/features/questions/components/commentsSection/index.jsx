@@ -8,7 +8,7 @@ const CommentsSection = ({ uuid }) => {
   const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   const commentsData = useFetchData(
-    `${Settings.API_URL}/questions/${uuid}/answers`
+    `${Settings.API_URL}/questions/${uuid}/answers`,
   );
 
   useEffect(() => {
