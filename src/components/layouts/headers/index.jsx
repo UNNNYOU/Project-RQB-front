@@ -8,7 +8,6 @@ import { currentUserState, Login } from "@/features/auth/api";
 
 export default function Headers() {
   const currentUser = useRecoilValue(currentUserState);
-
   return (
     <>
       <Suspense>
