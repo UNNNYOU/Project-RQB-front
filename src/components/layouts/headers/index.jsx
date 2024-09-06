@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { useRecoilValue } from "recoil";
+import { SearchForm } from "@/components/form";
 import { Routes } from "@/config";
 import { currentUserState, Login } from "@/features/auth/api";
 
@@ -19,6 +20,9 @@ export default function Headers() {
             runteq&nbsp;<span className="font-semibold">overflow</span>
           </Link>
         </h1>
+        <div>
+          <SearchForm />
+        </div>
         <nav className="relative w-full bg-white px-2">
           <ul className="flex w-full items-center justify-end py-4 text-xs md:text-base">
             {!currentUser.uuid ? (
