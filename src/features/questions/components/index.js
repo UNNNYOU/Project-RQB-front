@@ -10,7 +10,6 @@ import ReviewBody from "./reviewBody";
 import UnresolvedStatus from "./unresolvedStatus";
 import UserAvatar from "./userAvatar";
 
-
 export {
   Pagination,
   QuestionList,

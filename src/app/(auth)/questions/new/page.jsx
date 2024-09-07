@@ -42,7 +42,7 @@ export default function QuestionNew() {
         body: JSON.stringify({
           question: {
             title,
-            body
+            body,
           },
         }),
       });
@@ -55,7 +55,7 @@ export default function QuestionNew() {
     } catch (error) {
       alert("エラーが発生しました");
     }
-  }
+  };
 
   const reviewQuestion = async (title, body, token, tags) => {
     console.log(body);
@@ -84,22 +84,27 @@ export default function QuestionNew() {
     } catch (error) {
       alert("エラーが発生しました");
     }
-  }
+  };
 
   const isReviewToggle = () => {
     setIsReviewVisible(!isReviewVisible);
-  }
+  };
 
   return (
     <>
       <article className="mt-4 flex w-full max-w-[1000px] flex-col lg:w-[95%]">
         <form onSubmit={(e) => Submit(e)}>
           <QuestionTitle />
-          <QuestionBody reviewBody={reviewBody} isReviewToggle={isReviewToggle} />
+          <QuestionBody
+            reviewBody={reviewBody}
+            isReviewToggle={isReviewToggle}
+          />
         </form>
       </article>
       {loading && <Loading />}
-      {isReviewVisible && (<ReviewBody reviewBody={reviewBody} isReviewToggle={isReviewToggle} />)}
+      {isReviewVisible && (
+        <ReviewBody reviewBody={reviewBody} isReviewToggle={isReviewToggle} />
+      )}
     </>
   );
 }
