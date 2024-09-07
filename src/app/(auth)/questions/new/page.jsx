@@ -21,7 +21,6 @@ export default function QuestionNew() {
     const body = form.get("questionBody");
     const tags = form.get("questionTags").split(/,|、|\s/);
 
-    console.log(tags);
     const submitId = e.nativeEvent.submitter.id;
     if (submitId === "POST") {
       await postQuestion(title, body, token);
