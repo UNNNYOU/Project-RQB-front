@@ -31,11 +31,11 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
   return (
     <div className="my-4 flex min-h-[50vh] flex-1 gap-3">
       <div
-        className={`relative flex w-full flex-col justify-between rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 lg:w-1/2 ${isPreviewVisible ? "hidden" : ""}`}
+        className={`relative flex w-full flex-col justify-between overflow-auto rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 lg:w-1/2 ${isPreviewVisible ? "hidden" : ""}`}
       >
         <textarea
           placeholder="質問内容"
-          className="resize-none border-none bg-gray-100 p-2 outline-none"
+          className="resize-none overflow-auto border-none bg-gray-100 p-2 outline-none"
           rows="12"
           name="questionBody"
           onChange={(e) => {
@@ -55,7 +55,8 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
           <button
             type="submit"
             id="REVIEW"
-            className="w-auto rounded-xl border border-blue-500 bg-blue-500 px-4 py-1 text-sm text-white transition-all hover:bg-white hover:text-blue-500"
+            disabled={!body}
+            className={`w-auto rounded-xl border border-blue-500 bg-blue-500 px-4 py-1 text-sm text-white transition-all hover:bg-white hover:text-blue-500 ${!body ? "cursor-not-allowed opacity-50" : ""}`}
           >
             AIに質問をレビュー
           </button>
@@ -81,7 +82,7 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
         </button>
       </div>
       <div
-        className={`w-full flex-1 ${isPreviewVisible ? "" : "hidden lg:flex"}`}
+        className={`w-full flex-1 overflow-x-auto ${isPreviewVisible ? "" : "hidden lg:flex"}`}
       >
         <div className="flex size-full flex-col rounded-xl border border-gray-200 bg-white px-4 py-2">
           <div
