@@ -14,15 +14,19 @@ export default function QuestionNew() {
 
   const Submit = async (e) => {
     setLoading(true);
+    e.preventDefault();
+    const form = new FormData(e.target);
     const token = localStorage.getItem("access_token");
-    const title = e.get("questionTitle");
-    const body = e.get("questionBody");
+    const title = form.get("questionTitle");
+    const body = form.get("questionBody");
+    const tags = form.get("questionTags").split(/,|、|\s/);
 
+    console.log(tags);
     const submitId = e.nativeEvent.submitter.id;
     if (submitId === "POST") {
       await postQuestion(title, body, token);
     } else if (submitId === "REVIEW") {
-      await reviewQuestion(title, body, token);
+      await reviewQuestion(title, body, token, tags);
     }
     setLoading(false);
   };
@@ -37,8 +41,8 @@ export default function QuestionNew() {
         },
         body: JSON.stringify({
           question: {
-            title: title,
-            body: body,
+            title,
+            body
           },
         }),
       });
@@ -53,13 +57,10 @@ export default function QuestionNew() {
     }
   }
 
-  const isReviewToggle = () => {
-    setIsReviewVisible(!isReviewVisible);
-  }
-
-  const reviewQuestion = async (title, body, token) => {
+  const reviewQuestion = async (title, body, token, tags) => {
+    console.log(body);
     try {
-      const response = await fetch(`${Settings.API_URL}/questions/review`, {
+      const response = await fetch(`${Settings.API_URL}/questions/ai_review`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,20 +68,26 @@ export default function QuestionNew() {
         },
         body: JSON.stringify({
           question: {
-            title: title,
-            body: body,
+            title,
+            body,
+            tags,
           },
         }),
       });
       if (response.ok) {
         const data = await response.json();
-        setReviewBody(data);
+        setReviewBody(data.review);
+        isReviewToggle();
       } else {
         alert("エラーが発生しました");
       }
     } catch (error) {
       alert("エラーが発生しました");
     }
+  }
+
+  const isReviewToggle = () => {
+    setIsReviewVisible(!isReviewVisible);
   }
 
   return (
