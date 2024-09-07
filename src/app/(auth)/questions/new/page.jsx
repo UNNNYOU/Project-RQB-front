@@ -58,7 +58,6 @@ export default function QuestionNew() {
   };
 
   const reviewQuestion = async (title, body, token, tags) => {
-    console.log(body);
     try {
       const response = await fetch(`${Settings.API_URL}/questions/ai_review`, {
         method: "POST",
