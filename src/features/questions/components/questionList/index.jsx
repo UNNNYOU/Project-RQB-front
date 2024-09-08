@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Loading } from "@/components/layouts";
 import { QuestionStatus, Routes } from "@/config";
 import { useFetchData } from "@/lib";
 
 export default function QuestionList({ url }) {
   const data = useFetchData(url);
 
-  // TODO : ローディング表示
-  if (!data) return <div>loading...</div>;
+  if (!data) return <Loading />;
   if (data.length === 0) return <div>質問がありません</div>;
 
   return (

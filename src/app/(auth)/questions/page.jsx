@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
+import { Loading } from "@/components/layouts";
 import { Routes, Settings } from "@/config";
 import { Pagination, QuestionList } from "@/features/questions/components";
 import { useFetchData } from "@/lib";
@@ -134,7 +135,7 @@ const QuestionsPage = () => {
 
 export default function Questions() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <QuestionsPage />
     </Suspense>
   );
