@@ -6,6 +6,9 @@ import useFetchData from "@/lib/useFetchData";
 
 const QuestionDetail = ({ uuid }) => {
   const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
+  const questionDataTags = useFetchData(
+    `${Settings.API_URL}/questions/${uuid}/tags`,
+  );
 
   useEffect(() => {
     import("zenn-embed-elements");
@@ -44,12 +47,12 @@ const QuestionDetail = ({ uuid }) => {
               </p> */}
             </div>
             <div className="mb-8">
-              {questionData.tags?.map((tag) => (
+              {questionDataTags?.map((tag) => (
                 <span
-                  key={tag}
+                  key={tag.id}
                   className="mr-2 rounded-lg bg-blue-500 px-2.5 py-0.5 text-xs font-semibold text-white"
                 >
-                  {tag}
+                  {tag.name}
                 </span>
               ))}
             </div>
