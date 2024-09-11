@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { Settings } from "@/config";
 import { currentUserState } from "@/features/auth/api";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,11 +10,11 @@ import { fetcher } from "@/lib";
 const Login = () => {
   const params = useSearchParams();
   const { setAccessToken, getAccessToken } = useAuth();
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const setCurrentUser = useSetRecoilState(currentUserState);
   const [hasFetched, setHasFetched] = useState(false);
 
   useEffect(() => {
-    if (currentUser.uuid) return;
+    if (hasFetched) return;
 
     const token = params.get("token") || getAccessToken();
     if (token) {
