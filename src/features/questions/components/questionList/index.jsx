@@ -52,8 +52,8 @@ export default function QuestionList({ url }) {
                   {question.title}
                 </Link>
               </h2>
-              <p className="line-clamp-2 w-full max-w-[900px] truncate text-sm text-gray-600">
-                {question.body.slice(0, 100)}
+              <p className="line-clamp-2 w-full max-w-[700px] truncate text-sm text-gray-600">
+                {question.body.slice(0, 70)}...
               </p>
               <div className="mt-2 md:flex md:items-end md:justify-between">
                 <div className="mb-2 flex items-center justify-start gap-1 text-sm">
