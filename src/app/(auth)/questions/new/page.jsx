@@ -23,14 +23,14 @@ export default function QuestionNew() {
 
     const submitId = e.nativeEvent.submitter.id;
     if (submitId === "POST") {
-      await postQuestion(title, body, token);
+      await postQuestion(title, body, token, tags);
     } else if (submitId === "REVIEW") {
       await reviewQuestion(title, body, token, tags);
     }
     setLoading(false);
   };
 
-  const postQuestion = async (title, body, token) => {
+  const postQuestion = async (title, body, token, tags) => {
     try {
       const response = await fetch(`${Settings.API_URL}/questions`, {
         method: "POST",
@@ -42,6 +42,7 @@ export default function QuestionNew() {
           question: {
             title,
             body,
+            tags,
           },
         }),
       });
