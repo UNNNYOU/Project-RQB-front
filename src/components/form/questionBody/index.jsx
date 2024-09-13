@@ -10,7 +10,7 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [body, setBody] = useState("");
   const [postable, setPostable] = useState(false);
-  const [isHelpVisible, setIsHelpVisible] = useState(true);
+  const [isHelpVisible, setIsHelpVisible] = useState(false);
 
   const html = markdownToHtml(body, {
     embedOrigin: "https://embed.zenn.studio",
