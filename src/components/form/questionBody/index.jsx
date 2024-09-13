@@ -3,12 +3,14 @@ import "zenn-content-css";
 import { useEffect, useState } from "react";
 import { RiQuestionFill } from "rocketicons/ri";
 import markdownToHtml from "zenn-markdown-html";
+import { PostHelp } from "@/features/questions/components";
 import { resizeTextArea } from "@/utils";
 
 export default function QuestionBody({ reviewBody, isReviewToggle }) {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [body, setBody] = useState("");
   const [postable, setPostable] = useState(false);
+  const [isHelpVisible, setIsHelpVisible] = useState(true);
 
   const html = markdownToHtml(body, {
     embedOrigin: "https://embed.zenn.studio",
@@ -18,15 +20,20 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
     import("zenn-embed-elements");
   }, []);
 
-  const togglePreview = () => {
-    setIsPreviewVisible(!isPreviewVisible);
-  };
-
   useEffect(() => {
     if (reviewBody && body !== "") {
       setPostable(true);
     }
-  }, [reviewBody]);
+  }, [reviewBody, body]);
+
+  const togglePreview = () => {
+    setIsPreviewVisible(!isPreviewVisible);
+  };
+
+
+  const isHelpToggle = () => {
+    setIsHelpVisible(!isHelpVisible);
+  }
 
   return (
     <div className="my-4 flex min-h-[50vh] flex-1 gap-3">
@@ -77,9 +84,13 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
             </button>
           )}
         </div>
-        <button className="absolute bottom-3 right-3 inline-block text-gray-400">
+        <button
+          type="button"
+          onClick={() => isHelpToggle()}
+          className="absolute bottom-3 right-3 inline-block text-gray-700 transition-all hover:text-gray-400">
           <RiQuestionFill className="size-7" />
         </button>
+        {isHelpVisible && (<PostHelp onClick={isHelpToggle} />)}
       </div>
       <div
         className={`w-full flex-1 overflow-x-auto ${isPreviewVisible ? "" : "hidden lg:flex"}`}

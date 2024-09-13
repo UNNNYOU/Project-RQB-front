@@ -2,6 +2,7 @@ import AnswererComment from "./answererComment";
 import CommentForm from "./commentForms";
 import CommentsSection from "./commentsSection";
 import Pagination from "./pagination";
+import PostHelp from "./postHelp";
 import QuestionDetail from "./questionDetail";
 import QuestionList from "./questionList";
 import QuestionerComment from "./questionerComment";
@@ -22,4 +23,5 @@ export {
   CommentForm,
   UserAvatar,
   ReviewBody,
+  PostHelp,
 };
