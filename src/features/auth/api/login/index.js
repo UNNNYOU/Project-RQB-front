@@ -18,6 +18,7 @@ const Login = () => {
   useEffect(() => {
     if (hasFetched) return;
 
+    const currentPath = pathName;
     const token = params.get("token") || getAccessToken();
     if (token) {
       setAccessToken(token);
@@ -30,9 +31,11 @@ const Login = () => {
           profile: current_user.profile,
         });
         setHasFetched(true);
+        if (currentPath === Routes.home || currentPath === Routes.login) {
+          router.push(Routes.questions);
+        }
       });
     } else {
-      const currentPath = pathName;
       if (currentPath !== Routes.home && currentPath !== Routes.login) {
         router.push(Routes.home);
       }
