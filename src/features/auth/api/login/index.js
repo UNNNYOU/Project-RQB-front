@@ -40,7 +40,15 @@ const Login = () => {
         router.push(Routes.home);
       }
     }
-  }, [params, getAccessToken, setAccessToken, setCurrentUser, hasFetched, router, pathName]);
+  }, [
+    params,
+    getAccessToken,
+    setAccessToken,
+    setCurrentUser,
+    hasFetched,
+    router,
+    pathName,
+  ]);
   return null;
 };
 

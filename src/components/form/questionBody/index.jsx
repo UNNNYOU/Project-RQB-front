@@ -30,10 +30,9 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
     setIsPreviewVisible(!isPreviewVisible);
   };
 
-
   const isHelpToggle = () => {
     setIsHelpVisible(!isHelpVisible);
-  }
+  };
 
   return (
     <div className="my-4 flex min-h-[50vh] flex-1 gap-3">
@@ -87,10 +86,11 @@ export default function QuestionBody({ reviewBody, isReviewToggle }) {
         <button
           type="button"
           onClick={() => isHelpToggle()}
-          className="absolute bottom-3 right-3 inline-block text-gray-700 transition-all hover:text-gray-400">
+          className="absolute bottom-3 right-3 inline-block text-gray-700 transition-all hover:text-gray-400"
+        >
           <RiQuestionFill className="size-7" />
         </button>
-        {isHelpVisible && (<PostHelp onClick={isHelpToggle} />)}
+        {isHelpVisible && <PostHelp onClick={isHelpToggle} />}
       </div>
       <div
         className={`w-full flex-1 overflow-x-auto ${isPreviewVisible ? "" : "hidden lg:flex"}`}

@@ -14,7 +14,10 @@ export default function Headers() {
       </Suspense>
       <div className="flex justify-between md:container">
         <h1 className="flex items-center justify-center">
-          <Link href={currentUser.uuid ? Routes.questions : Routes.home} className="px-4 py-2">
+          <Link
+            href={currentUser.uuid ? Routes.questions : Routes.home}
+            className="px-4 py-2"
+          >
             runteq&nbsp;<span className="font-semibold">overflow</span>
           </Link>
         </h1>
