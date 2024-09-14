@@ -1,17 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const { getAccessToken } = useAuth();
   const [token, setToken] = useState(null);
 
-  useEffect(() => {
+  const fetchToken = useCallback(() => {
     const accessToken = getAccessToken();
     setToken(accessToken);
-  }, []);
+  }, [getAccessToken]);
+
+  useEffect(() => {
+    fetchToken();
+  }, [fetchToken]);
 
   const items = [
     {
@@ -57,19 +62,19 @@ export default function Home() {
   return (
     <article className="p-6">
       <section className="mb-10">
-        <h1 className="text-3xl font-bold mb-4">本アプリの説明</h1>
-        <p className="text-gray-600 leading-relaxed">
+        <h1 className="mb-4 text-3xl font-bold">本アプリの説明</h1>
+        <p className="leading-relaxed text-gray-600">
           <strong>runteq overflow</strong>{" "}
           は、アプリ開発における疑問点を掲示板形式で
-          <strong>質問</strong>、<strong>回答</strong>、<strong>閲覧</strong>
-          できるサービスです。質問者は、 回答者にわかりやすく
-          質問するスキルを鍛える機会を得られます。また、自分の実装でうまくいかない部分を、過去の質問を参考にして
-          解決することも可能です。さらに、質問に対して自分のわかる範囲で回答することで、
-          <strong>Give</strong>の精神が身に付き、
+          <strong>質問</strong>、<strong>回答</strong>、<strong>閲覧</strong>{" "}
+          できるサービスです。
+          質問者は、回答者にわかりやすく質問するスキルを鍛える機会を得られます。
+          また、自分の実装でうまくいかない部分を、過去の質問を参考にして解決することも可能です。
+          さらに、質問に対して自分のわかる範囲で回答することで、
+          <strong>Give</strong> の精神が身に付き、
           誰かに教えることによって自分の記憶の定着にもつながります。
           <strong>質問者</strong>、<strong>回答者</strong>、
-          <strong>閲覧者</strong>
-          どの立場からもご利用いただけるサービスです。
+          <strong>閲覧者</strong> どの立場からもご利用いただけるサービスです。
           <p>
             あなたも<strong>runteq overflow</strong>の一員になりませんか？
           </p>
@@ -77,23 +82,26 @@ export default function Home() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-10">アプリの使い方</h2>
+        <h2 className="mb-10 text-2xl font-semibold">アプリの使い方</h2>
         <div className="relative overflow-x-auto">
           <div className="flex space-x-6 pb-4">
             {items.map((item, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-80 bg-white p-4 rounded-lg shadow-md"
+                className="w-80 shrink-0 rounded-lg bg-white p-4 shadow-md"
               >
-                <div className="w-full h-60 bg-gray-200 rounded-lg overflow-hidden mb-4">
-                  <img
+                <div className="mb-4 h-60 w-full overflow-hidden rounded-lg bg-gray-200">
+                  {/* Next.jsのImageコンポーネントを使用 */}
+                  <Image
                     src={item.image}
                     alt={item.altText}
-                    className="w-full h-full object-cover"
+                    width={320}
+                    height={240}
+                    className="size-full object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <ul className="list-disc list-inside text-gray-600">
+                <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
+                <ul className="list-inside list-disc text-gray-600">
                   {item.description.map((point, idx) => (
                     <li key={idx}>{point}</li>
                   ))}
@@ -104,12 +112,12 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="flex justify-center mt-12 space-x-4">
+      <div className="mt-12 flex justify-center space-x-4">
         {token ? (
           <Link href="/questions">
             <button
               type="button"
-              className="mt-2 w-full sm:w-auto rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200]"
+              className="mt-2 w-full rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200] sm:w-auto"
             >
               質問一覧へ
             </button>
@@ -118,7 +126,7 @@ export default function Home() {
           <Link href="/login">
             <button
               type="button"
-              className="mt-2 w-full sm:w-auto  rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200]"
+              className="mt-2 w-full rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200] sm:w-auto"
             >
               ログインする
             </button>
