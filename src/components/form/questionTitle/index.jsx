@@ -32,6 +32,7 @@ export default function QuestionTitle() {
         <input
           type="text"
           placeholder="タグ"
+          name="questionTags"
           className="mt-3 w-full rounded-lg border-gray-200 bg-gray-100 px-4 py-1 text-sm outline-none lg:text-base"
         />
       </div>
