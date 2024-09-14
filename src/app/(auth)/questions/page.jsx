@@ -21,7 +21,9 @@ const QuestionsPage = () => {
   const nextParams = new URLSearchParams(params);
   nextParams.set("page", Number(currentPage) + 1);
   nextParams.set("order", currentOrder);
-  const allCount = useFetchData(`${Settings.API_URL}/questions/all_count`);
+  const allCount = useFetchData(
+    `${Settings.API_URL}/questions/all_count?${params.toString()}`,
+  );
   const PER_PAGE = 10;
   const TOTAL_PAGE = Math.ceil(allCount?.count / PER_PAGE);
 
