@@ -19,7 +19,7 @@ export default function QuestionNew() {
     const token = localStorage.getItem("access_token");
     const title = form.get("questionTitle");
     const body = form.get("questionBody");
-    const tags = form.get("questionTags").split(/,|、|\s/);
+    const tags = form.get("questionTags").split(/,|、/);
 
     const submitId = e.nativeEvent.submitter.id;
     if (submitId === "POST") {
