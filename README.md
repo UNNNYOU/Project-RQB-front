@@ -3,7 +3,7 @@
 1. `git clone`
 1. `.env.local`をルートに作成
 1. `docker compose build`
-1. `docker compose run --rm web yarn install` 
+1. `docker compose run --rm web yarn install`
 1. `docker compose up`
 
 ## コンテナの入り方
@@ -20,9 +20,7 @@
 
 ```
 NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
-NEXT_PUBLIC_GA_ID=
 ```
-※`NEXT_PUBLIC_GA_ID`はGoogleアナリティクスのタグIDなのでローカル環境では空欄でOKです
 
 ## パッケージを追加について
 
@@ -55,4 +53,5 @@ $ yarn format
 - [SWR](https://swr.vercel.app/ja)
 - [Recoil](https://recoiljs.org/)
 - [zenn-editor](https://zenn-dev.github.io/zenn-docs-for-developers/guides/zenn-editor)
+
 # project-rqb-front
