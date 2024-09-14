@@ -18,6 +18,7 @@ export default function Footers() {
           <li>
             <Link href={Routes.contact}>お問い合わせ</Link>
           </li>
+          <li>©2024 Team RQB</li>
         </ul>
       </nav>
     </div>
