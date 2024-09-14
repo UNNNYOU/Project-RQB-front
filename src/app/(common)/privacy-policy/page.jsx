@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Routes } from "@/config";
 
 export default function PrivacyPolicy() {
   return (
@@ -55,7 +56,7 @@ export default function PrivacyPolicy() {
         <section className="my-4">
           <h2 className="mb-2 font-semibold">お問い合わせ</h2>
           <p>ユーザーの情報の開示、情報の訂正、利用停止、削除をご希望の場合は、以下のお問合せフォームにご連絡ください。</p>
-          <p><Link href="" className="my-2 ml-4 block text-blue-500 underline hover:opacity-80">お問合せフォーム</Link></p>
+          <p><Link href={Routes.contact} className="my-2 ml-4 block text-blue-500 underline hover:opacity-80">お問合せフォーム</Link></p>
         </section>
         <div className="text-end">
           <p>2024年09月13日 制定</p>
