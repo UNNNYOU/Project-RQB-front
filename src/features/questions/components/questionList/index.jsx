@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Loading } from "@/components/layouts";
 import { QuestionStatus, Routes } from "@/config";
 import { useFetchData } from "@/lib";
 
 export default function QuestionList({ url }) {
   const data = useFetchData(url);
 
-  // TODO : ローディング表示
-  if (!data) return <div>loading...</div>;
+  if (!data) return <Loading />;
   if (data.length === 0) return <div>質問がありません</div>;
 
   return (
@@ -65,10 +65,10 @@ export default function QuestionList({ url }) {
                   {question.tags?.map((tag) => (
                     <Link
                       key={tag}
-                      href={`${Routes.questions}?tag=${tag}`}
+                      href={`${Routes.questions}?tag=${tag.name}`}
                       className="rounded bg-slate-400 px-2 py-1 text-white transition-all hover:bg-slate-700 hover:text-white"
                     >
-                      {tag}
+                      {tag.name}
                     </Link>
                   ))}
                 </div>
