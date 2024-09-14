@@ -20,7 +20,7 @@ export default function Headers() {
           </Link>
         </h1>
         <div className="flex grow justify-center">
-          <SearchForm />
+          { currentUser.uuid ? <SearchForm /> : null }
         </div>
         <nav className="bg-white px-2">
           <ul className="flex items-center justify-end py-4 text-xs md:text-base">
