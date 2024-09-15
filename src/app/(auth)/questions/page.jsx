@@ -115,14 +115,16 @@ const QuestionsPage = () => {
           </div>
         </div>
 
-        {currentPage > 0 && currentPage <= TOTAL_PAGE && (
-          <QuestionList
-            url={`${Settings.API_URL}/questions?${params.toString()}`}
-          />
-        )}
+        <div className="my-4">
+          {currentPage > 0 && currentPage <= TOTAL_PAGE && (
+            <QuestionList
+              url={`${Settings.API_URL}/questions?${params.toString()}`}
+            />
+          )}
+        </div>
       </article>
 
-      <Pagination currentPage={Number(currentPage)} totalPage={TOTAL_PAGE} />
+      <Pagination currentPage={Number(currentPage)} totalPage={TOTAL_PAGE} path={Routes.questions} />
 
       {currentPage < TOTAL_PAGE && (
         <div className="hidden">
