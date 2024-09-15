@@ -25,12 +25,13 @@ export default function QuestionList({ url }) {
                 href={Routes.user(question.user.uuid)}
                 className="transition-all hover:opacity-70"
               >
-                {question.user.avatar ? (
+                {(question.user.avatar && !question.user.avatar.endsWith("http://localhost:3000")) ? (
                   <Image
                     src={question.user.avatar}
                     width={64}
                     height={64}
                     alt={question.user.name}
+                    unoptimized
                   />
                 ) : (
                   <div className="size-16 rounded-full bg-orange-400" />
