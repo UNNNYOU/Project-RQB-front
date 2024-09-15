@@ -1,13 +1,15 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { mutate } from "swr";
 import { Settings } from "@/config";
+import { currentUserState } from "@/features/auth/api";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
 
 const CommentForm = ({ uuid }) => {
   const router = useRouter();
-
+  const currentUser = useRecoilValue(currentUserState);
   const questionData = useFetchData(`${Settings.API_URL}/questions/${uuid}`);
 
   const [answer, setAnswer] = useState("");
@@ -16,10 +18,11 @@ const CommentForm = ({ uuid }) => {
     return <div>Loading...</div>;
   }
 
-  const isQuestioner = questionData.user.uuid === uuid;
+  const isQuestioner = questionData.user.uuid === currentUser.uuid;
 
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("access_token");
     try {
       const response = await fetch(
         `${Settings.API_URL}/questions/${uuid}/answers`,
@@ -27,6 +30,7 @@ const CommentForm = ({ uuid }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ body: answer }),
         },
@@ -44,6 +48,7 @@ const CommentForm = ({ uuid }) => {
   };
 
   const handleResolve = async () => {
+    const token = localStorage.getItem("access_token");
     try {
       const response = await fetch(
         `${Settings.API_URL}/questions/${uuid}/close`,
@@ -51,6 +56,7 @@ const CommentForm = ({ uuid }) => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -69,27 +75,24 @@ const CommentForm = ({ uuid }) => {
   return (
     <div className="container mx-auto p-4">
       <div
-        className={`relative rounded-lg bg-white p-4 shadow-md ${
-          isQuestioner ? "ml-20" : "mr-20"
-        }`}
+        className={`relative rounded-lg bg-white p-4 shadow-md ${isQuestioner ? "ml-20" : "mr-20"
+          }`}
       >
         <div
-          className={`absolute ${
-            isQuestioner
-              ? "-left-12 top-0 -translate-x-full"
-              : "-right-12 top-0 translate-x-full"
-          } flex size-14 items-center justify-center rounded-full bg-gray-300`}
+          className={`absolute ${isQuestioner
+            ? "-left-12 top-0 -translate-x-full"
+            : "-right-12 top-0 translate-x-full"
+            } flex size-14 items-center justify-center rounded-full bg-gray-300`}
         >
           <span className="text-xs text-gray-600">
-            <Questions.UserAvatar userId={questionData.user.uuid} />
+            <Questions.UserAvatar user={currentUser} />
           </span>
         </div>
         <div
-          className={`absolute top-10 ${
-            isQuestioner
-              ? "left-0 -translate-x-full"
-              : "right-0 translate-x-full"
-          } h-6 w-8 bg-white`}
+          className={`absolute top-10 ${isQuestioner
+            ? "left-0 -translate-x-full"
+            : "right-0 translate-x-full"
+            } h-6 w-8 bg-white`}
           style={{
             clipPath: isQuestioner
               ? "polygon(0 0, 100% 0, 100% 100%)"

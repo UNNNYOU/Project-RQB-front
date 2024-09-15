@@ -1,30 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import useSWR from "swr";
 import { Routes } from "@/config";
 
-const fetcher = async (url) => {
-  try {
-    const res = await fetch(url);
-    return res.json();
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
+const UserAvatar = ({ user }) => {
 
-const UserAvatar = ({ userId }) => {
-  const { data: user } = useSWR(`/api/users/${userId}`, fetcher, {
-    fallbackData: { uuid: userId, name: "", avatar: "" },
-  });
+  console.log("user", user);
 
   return (
     <Link
-      href={Routes.user(user?.uuid || userId)}
+      href={Routes.user(user.uuid)}
       className="transition-all hover:opacity-70"
     >
-      {user?.avatar ? (
-        <Image src={user.avatar} width={64} height={64} alt={user.name} />
+      {(user.avatar && !user.avatar.endsWith("http://localhost:3000")) ? (
+        <Image src={user.avatar} width={64} height={64} alt={user?.name}
+          unoptimized />
       ) : (
         <div className="size-16 rounded-full bg-orange-400" />
       )}
