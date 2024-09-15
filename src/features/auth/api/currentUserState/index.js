@@ -9,6 +9,7 @@ const currentUserState = atom({
     github_uid: null,
     term: null,
     profile: null,
+    avatar: null,
   },
 });
 
