@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { HiSearch, HiHome } from "rocketicons/hi";
+import { HiHome } from "rocketicons/hi";
 import { RiQuestionnaireFill } from "rocketicons/ri";
+import { SearchFormModal } from "@/components/modal";
 import { Routes } from "@/config";
 
 export default function Asides() {
@@ -10,13 +11,7 @@ export default function Asides() {
         <nav>
           <ul className="flex items-center justify-center gap-8 md:flex-col-reverse">
             <li className="md:hidden">
-              <button
-                type="button"
-                className="flex items-center justify-start gap-3 p-4 transition-all hover:bg-runteq-primary hover:text-white"
-              >
-                <HiSearch className="inline-block size-5" />
-                検索
-              </button>
+              <SearchFormModal />
             </li>
             <li>
               <Link

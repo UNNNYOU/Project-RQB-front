@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { MainProvider } from "./mainProvider";
 import { MainLayout } from "@/components/layouts";
 import "./globals.css";

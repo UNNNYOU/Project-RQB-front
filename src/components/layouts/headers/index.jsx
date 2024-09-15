@@ -22,7 +22,7 @@ export default function Headers() {
             runteq&nbsp;<span className="font-semibold">overflow</span>
           </Link>
         </h1>
-        <div className="flex grow justify-center">
+        <div className="hidden grow justify-center md:flex">
           {currentUser.uuid ? <SearchForm /> : null}
         </div>
         <nav className="bg-white px-2">
