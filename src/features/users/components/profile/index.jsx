@@ -132,9 +132,11 @@ export default function Profile({ uuid }) {
           <div className="grid grid-rows-2 items-center justify-center md:justify-start">
             {isEditing ? (
               <div className="flex items-end gap-2 md:justify-start">
-                {data.term ?
+                {data.term ? (
                   <span className="text-sm">{data.term}期</span>
-                  : <SelectTerm />}
+                ) : (
+                  <SelectTerm />
+                )}
                 <input
                   type="text"
                   name="name"
@@ -231,7 +233,11 @@ export default function Profile({ uuid }) {
             className="flex w-full flex-col items-center justify-center gap-2"
             onSubmit={handleSave}
           >
-            {!data.term && <p className="text-center text-red-500">※入学期は一度選ぶと修正できません</p>}
+            {!data.term && (
+              <p className="text-center text-red-500">
+                ※入学期は一度選ぶと修正できません
+              </p>
+            )}
             <button
               type="submit"
               className="rounded border border-runteq-secondary bg-runteq-secondary px-2 py-1 text-white transition-all hover:bg-white hover:text-runteq-secondary"
