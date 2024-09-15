@@ -26,7 +26,7 @@ export default function QuestionList({ url }) {
                 className="transition-all hover:opacity-70"
               >
                 {question.user.avatar &&
-                  !question.user.avatar.endsWith("http://localhost:3000") ? (
+                !question.user.avatar.endsWith("http://localhost:3000") ? (
                   <Image
                     src={question.user.avatar}
                     width={64}

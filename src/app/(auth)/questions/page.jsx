@@ -124,7 +124,11 @@ const QuestionsPage = () => {
         </div>
       </article>
 
-      <Pagination currentPage={Number(currentPage)} totalPage={TOTAL_PAGE} path={Routes.questions} />
+      <Pagination
+        currentPage={Number(currentPage)}
+        totalPage={TOTAL_PAGE}
+        path={Routes.questions}
+      />
 
       {currentPage < TOTAL_PAGE && (
         <div className="hidden">

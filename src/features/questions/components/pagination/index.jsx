@@ -50,10 +50,11 @@ export default function Pagination({ currentPage, totalPage, path }) {
               <button
                 key={page}
                 onClick={() => handleClickPage(page)}
-                className={`border border-r-0 border-slate-400 px-3 py-2 ${currentPage === page
-                  ? "cursor-auto bg-runteq-secondary font-bold text-white"
-                  : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
-                  } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
+                className={`border border-r-0 border-slate-400 px-3 py-2 ${
+                  currentPage === page
+                    ? "cursor-auto bg-runteq-secondary font-bold text-white"
+                    : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
+                } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
                 disabled={currentPage === page}
               >
                 {page}
@@ -62,21 +63,22 @@ export default function Pagination({ currentPage, totalPage, path }) {
           }
           return null;
         })}
-        {5 <= totalPage && Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
-          const page = currentPage + i;
-          if (page > currentPage && page <= totalPage) {
-            return (
-              <button
-                key={page}
-                onClick={() => handleClickPage(page)}
-                className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
-              >
-                {page}
-              </button>
-            );
-          }
-          return null;
-        })}
+        {5 <= totalPage &&
+          Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
+            const page = currentPage + i;
+            if (page > currentPage && page <= totalPage) {
+              return (
+                <button
+                  key={page}
+                  onClick={() => handleClickPage(page)}
+                  className="border border-r-0 border-slate-400 bg-white px-3 py-2 transition-all hover:bg-runteq-secondary hover:text-white"
+                >
+                  {page}
+                </button>
+              );
+            }
+            return null;
+          })}
 
         {/* 次へと最後のボタン */}
         {currentPage < totalPage && (
