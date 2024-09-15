@@ -75,24 +75,27 @@ const CommentForm = ({ uuid }) => {
   return (
     <div className="container mx-auto p-4">
       <div
-        className={`relative rounded-lg bg-white p-4 shadow-md ${isQuestioner ? "ml-20" : "mr-20"
-          }`}
+        className={`relative rounded-lg bg-white p-4 shadow-md ${
+          isQuestioner ? "ml-20" : "mr-20"
+        }`}
       >
         <div
-          className={`absolute ${isQuestioner
-            ? "-left-12 top-0 -translate-x-full"
-            : "-right-12 top-0 translate-x-full"
-            } flex size-14 items-center justify-center rounded-full bg-gray-300`}
+          className={`absolute ${
+            isQuestioner
+              ? "-left-12 top-0 -translate-x-full"
+              : "-right-12 top-0 translate-x-full"
+          } flex size-14 items-center justify-center rounded-full bg-gray-300`}
         >
           <span className="text-xs text-gray-600">
             <Questions.UserAvatar user={currentUser} />
           </span>
         </div>
         <div
-          className={`absolute top-10 ${isQuestioner
-            ? "left-0 -translate-x-full"
-            : "right-0 translate-x-full"
-            } h-6 w-8 bg-white`}
+          className={`absolute top-10 ${
+            isQuestioner
+              ? "left-0 -translate-x-full"
+              : "right-0 translate-x-full"
+          } h-6 w-8 bg-white`}
           style={{
             clipPath: isQuestioner
               ? "polygon(0 0, 100% 0, 100% 100%)"
