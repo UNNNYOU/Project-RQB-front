@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
-import { Routes } from "@/config";
 
-export default function Pagination({ currentPage, totalPage }) {
+export default function Pagination({ currentPage, totalPage, path }) {
   const router = useRouter();
 
   const handleClickPage = (page) => {
@@ -11,7 +10,7 @@ export default function Pagination({ currentPage, totalPage }) {
     } else {
       query.delete("page");
     }
-    router.push(Routes.questions + "?" + query.toString());
+    router.push(path + "?" + query.toString());
   };
 
   return (
@@ -45,17 +44,16 @@ export default function Pagination({ currentPage, totalPage }) {
 
         {/* ページ番号ボタン */}
         {Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
-          const page = currentPage - 4 + i;
+          const page = totalPage < 5 ? i + 1 : currentPage - 4 + i;
           if (page > 0 && page <= totalPage) {
             return (
               <button
                 key={page}
                 onClick={() => handleClickPage(page)}
-                className={`border border-r-0 border-slate-400 px-3 py-2 ${
-                  currentPage === page
-                    ? "cursor-auto bg-runteq-secondary font-bold text-white"
-                    : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
-                } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
+                className={`border border-r-0 border-slate-400 px-3 py-2 ${currentPage === page
+                  ? "cursor-auto bg-runteq-secondary font-bold text-white"
+                  : "bg-white transition-all hover:bg-runteq-secondary hover:text-white"
+                  } ${currentPage == page && page == 1 && "rounded-l"} ${currentPage == page && currentPage == totalPage && "rounded-r"}`}
                 disabled={currentPage === page}
               >
                 {page}
@@ -64,7 +62,7 @@ export default function Pagination({ currentPage, totalPage }) {
           }
           return null;
         })}
-        {Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
+        {5 <= totalPage && Array.from({ length: Math.min(5, totalPage) }, (_, i) => {
           const page = currentPage + i;
           if (page > currentPage && page <= totalPage) {
             return (
