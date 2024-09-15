@@ -34,5 +34,3 @@ export default function SearchForm({ onMount }) {
     </div>
   );
 }
-
-

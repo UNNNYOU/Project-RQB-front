@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useCallback } from "react";
 import { HiSearch, HiX } from "rocketicons/hi";
 import { SearchForm } from "@/components/form";
@@ -45,7 +45,7 @@ export default function SearchFormModal() {
           >
             <button
               onClick={toggleModal}
-              className="self-end mb-3 rounded-full hover:bg-gray-200"
+              className="mb-3 self-end rounded-full hover:bg-gray-200"
             >
               <HiX className="size-6" />
             </button>
