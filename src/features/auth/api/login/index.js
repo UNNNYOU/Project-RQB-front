@@ -23,13 +23,7 @@ const Login = () => {
     if (token) {
       setAccessToken(token);
       fetcher(`${Settings.API_URL}/auth/me`).then((current_user) => {
-        setCurrentUser({
-          uuid: current_user.uuid,
-          name: current_user.name,
-          github_uid: current_user.github_uid,
-          term: current_user.term,
-          profile: current_user.profile,
-        });
+        setCurrentUser(current_user);
         setHasFetched(true);
         if (currentPath === Routes.home || currentPath === Routes.login) {
           router.push(Routes.questions);

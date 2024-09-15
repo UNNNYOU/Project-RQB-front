@@ -31,7 +31,7 @@ const QuestionDetail = ({ uuid }) => {
       )}
       <div className="rounded-lg bg-white p-6 shadow-md">
         <div className="mb-4 flex flex-col sm:flex-row">
-          <Questions.UserAvatar userId={questionData.user.uuid} />
+          <Questions.UserAvatar user={questionData.user} />
           <div className="ml-0 mt-4 flex w-full flex-col sm:ml-8 sm:mt-0">
             <h1 className="text-2xl font-bold">{questionData.title}</h1>
             <div className="mb-2 mt-4 flex w-full flex-wrap border-b border-gray-300 pb-2 sm:mt-8">

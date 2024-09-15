@@ -20,17 +20,20 @@ export default function QuestionList({ url }) {
             key={index}
             className={`flex items-start justify-center gap-2 py-4 ${index != data.length - 1 && "border-b border-slate-300"}`}
           >
-            <div className="flex flex-col items-center justify-center gap-1">
+            <div className="flex aspect-square w-16 flex-col items-center justify-center gap-1">
               <Link
                 href={Routes.user(question.user.uuid)}
                 className="transition-all hover:opacity-70"
               >
-                {question.user.avatar ? (
+                {question.user.avatar &&
+                !question.user.avatar.endsWith("http://localhost:3000") ? (
                   <Image
                     src={question.user.avatar}
                     width={64}
                     height={64}
                     alt={question.user.name}
+                    className="size-full rounded-full object-cover"
+                    unoptimized
                   />
                 ) : (
                   <div className="size-16 rounded-full bg-orange-400" />
