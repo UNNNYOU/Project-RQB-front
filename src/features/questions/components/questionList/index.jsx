@@ -14,11 +14,11 @@ export default function QuestionList({ url }) {
 
   return (
     <>
-      <div className="my-4 rounded bg-white px-3 md:px-6 md:py-3">
+      <div className="rounded bg-white px-3 md:px-6 md:py-3">
         {data.map((question, index) => (
           <section
             key={index}
-            className={`flex items-start justify-center gap-2 py-4 ${index != data.length - 1 && "border-b border-slate-300"}`}
+            className={`flex items-start justify-center gap-6 py-4 ${index != data.length - 1 && "border-b border-slate-300"}`}
           >
             <div className="flex aspect-square w-16 flex-col items-center justify-center gap-1">
               <Link
