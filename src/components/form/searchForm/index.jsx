@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useEffect, useState, useCallback } from "react";
-import { HiSearch } from "rocketicons/hi";
+import { HiSearch, HiX } from "rocketicons/hi";
 import { Routes } from "@/config";
 
 export function SearchForm({ onMount }) {
@@ -72,9 +72,15 @@ export function SearchFormModal() {
           onClick={toggleModal}
         >
           <div
-            className="flex w-11/12 justify-center rounded-lg bg-white p-4 shadow-xl"
+            className="flex w-11/12 flex-col items-center rounded-lg bg-white p-2 pb-10 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
+            <button
+              onClick={toggleModal}
+              className="self-end mb-3 rounded-full hover:bg-gray-200"
+            >
+              <HiX className="size-6" />
+            </button>
             <SearchForm onMount={focusElement} />
           </div>
         </div>
