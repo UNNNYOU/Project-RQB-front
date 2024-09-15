@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HiHome } from "rocketicons/hi";
 import { RiQuestionnaireFill } from "rocketicons/ri";
-import { SearchFormModal } from "@/components/form";
+import { SearchFormModal } from "@/components/modal";
 import { Routes } from "@/config";
 
 export default function Asides() {

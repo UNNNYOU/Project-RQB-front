@@ -1,5 +1,5 @@
 import QuestionBody from "./questionBody";
 import QuestionTitle from "./questionTitle";
-import { SearchForm, SearchFormModal } from "./searchForm";
+import SearchForm from "./searchForm";
 
-export { QuestionBody, QuestionTitle, SearchForm, SearchFormModal };
+export { QuestionBody, QuestionTitle, SearchForm };
