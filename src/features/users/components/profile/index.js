@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { FaGithub } from "rocketicons/fa";
 import { useSWRConfig } from "swr";
 import { Loading } from "@/components/layouts";
 import { Settings } from "@/config";
+import { currentUserState } from "@/features/auth/api";
 import { useFetchData } from "@/lib";
 
 export default function Profile({ uuid }) {
+  const currentUser = useRecoilValue(currentUserState);
   const [isEditing, setIsEditing] = useState(false);
   const [imageBase64, setImageBase64] = useState("");
   const data = useFetchData(`${Settings.API_URL}/users/${uuid}`);
@@ -81,13 +84,14 @@ export default function Profile({ uuid }) {
 
   return (
     <section className="relative z-0 mt-16 w-full rounded bg-white px-2 pb-4 md:pb-4">
-      <button
+      {currentUser.uuid === data.uuid && <button
         type="button"
         onClick={handleEdit}
         className="absolute right-2 top-2 z-10 rounded border border-slate-700 bg-slate-700 px-2 py-1 text-sm text-white transition-all hover:bg-white hover:text-slate-700"
       >
         {isEditing ? "戻る" : "編集"}
       </button>
+      }
       <div className="absolute -top-10 flex w-full items-start justify-center md:justify-start">
         {isEditing ? (
           <button
