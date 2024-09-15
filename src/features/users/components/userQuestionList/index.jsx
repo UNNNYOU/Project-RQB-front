@@ -44,7 +44,7 @@ export default function UserQuestionList({ uuid }) {
         <ul className="grid grid-cols-3 gap-2 md:grid-cols-4">
           <li className="flex items-center justify-center">
             <button
-              type="butotn"
+              type="button"
               onClick={() => handleTabChange(Tabs.question)}
               className={`w-full rounded-t border-t-2 bg-white py-2 ${currentTab === Tabs.question ? " border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-white"}`}
             >
@@ -53,7 +53,7 @@ export default function UserQuestionList({ uuid }) {
           </li>
           <li className="flex items-center justify-center">
             <button
-              type="butotn"
+              type="button"
               onClick={() => handleTabChange(Tabs.answer)}
               className={`w-full rounded-t bg-white py-2 ${currentTab === Tabs.answer ? "border-t-2 border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-white"}`}
             >
