@@ -16,11 +16,13 @@ export default function SearchForm({ onMount }) {
 
   const handleSearch = (searchQuery) => {
     const currentParams = new URLSearchParams(searchParams);
-    
-    searchQuery ? currentParams.set('search', searchQuery) : currentParams.delete('search');
+
+    searchQuery
+      ? currentParams.set("search", searchQuery)
+      : currentParams.delete("search");
 
     const newQuery = currentParams.toString();
-    const newPath = `${Routes.questions}${newQuery ? `?${newQuery}` : ''}`;
+    const newPath = `${Routes.questions}${newQuery ? `?${newQuery}` : ""}`;
 
     router.push(newPath);
   };
@@ -35,7 +37,7 @@ export default function SearchForm({ onMount }) {
           className="w-full rounded-md border border-gray-400 p-2 pl-10 focus:border-runteq-secondary focus:outline-none"
           placeholder="検索..."
           onChange={(e) => handleSearch(e.target.value)}
-          defaultValue={searchParams.get('search') || ''}
+          defaultValue={searchParams.get("search") || ""}
         />
       </div>
     </div>
