@@ -14,7 +14,7 @@ const QuestionerComment = ({ comment, html }) => {
         <p className="text-sm font-bold text-gray-600">{comment.user.name}</p>
         <p className="text-sm text-gray-600">{comment.created_at}</p>
         <div
-          className="znc h-full p-2"
+          className="znc h-full max-w-[850px] overflow-x-auto p-2"
           dangerouslySetInnerHTML={{
             __html: html,
           }}

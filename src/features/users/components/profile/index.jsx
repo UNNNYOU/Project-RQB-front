@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { FaGithub } from "rocketicons/fa";
 import { useSWRConfig } from "swr";
+import { SelectTerm } from "@/components/form";
 import { Loading } from "@/components/layouts";
 import { Settings } from "@/config";
 import { currentUserState } from "@/features/auth/api";
 import { useFetchData } from "@/lib";
 
 export default function Profile({ uuid }) {
-  const currentUser = useRecoilValue(currentUserState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [isEditing, setIsEditing] = useState(false);
   const [imageBase64, setImageBase64] = useState("");
   const data = useFetchData(`${Settings.API_URL}/users/${uuid}`);
@@ -52,9 +53,10 @@ export default function Profile({ uuid }) {
     const formData = new FormData(e.target);
     const name = formData.get("name");
     const profile = formData.get("profile");
-    const avatar = imageBase64 ? imageBase64 : data.avatar.url;
+    const avatar = imageBase64 ? imageBase64 : data.avatar;
     const learned_tags = formData.get("learned_tags").split(",");
     const learning_tags = formData.get("learning_tags").split(",");
+    const term = data.term ? null : formData.get("term");
 
     const updateData = {
       name: name,
@@ -62,6 +64,7 @@ export default function Profile({ uuid }) {
       avatar: avatar,
       learned_tags: learned_tags,
       learning_tags: learning_tags,
+      term: term,
     };
 
     const token = localStorage.getItem("access_token");
@@ -76,7 +79,11 @@ export default function Profile({ uuid }) {
 
     if (response.ok) {
       setIsEditing(false);
+      const data = await response.json();
+      console.log(data);
+      setCurrentUser(data);
       mutate(`${Settings.API_URL}/users/${uuid}`);
+      mutate(`${Settings.API_URL}/auth/me`);
     } else {
       alert("エラーが発生しました");
     }
@@ -129,7 +136,11 @@ export default function Profile({ uuid }) {
           <div className="grid grid-rows-2 items-center justify-center md:justify-start">
             {isEditing ? (
               <div className="flex items-end gap-2 md:justify-start">
-                {/* <span className="text-sm">52期</span> */}
+                {data.term ? (
+                  <span className="text-sm">{data.term}期</span>
+                ) : (
+                  <SelectTerm />
+                )}
                 <input
                   type="text"
                   name="name"
@@ -141,7 +152,7 @@ export default function Profile({ uuid }) {
               </div>
             ) : (
               <h1 className="flex items-end justify-center gap-2 text-xl md:justify-start md:text-2xl">
-                <span className="text-sm">52期</span>
+                {data.term && <span className="text-sm">{data.term}期</span>}
                 {data.name}
               </h1>
             )}
@@ -166,7 +177,7 @@ export default function Profile({ uuid }) {
           <div>
             <dl className="flex w-full flex-col">
               <div className="mb-2 w-full border-b pb-2">
-                <dt>勉強中</dt>
+                <dt>勉強中{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
                 {isEditing ? (
                   <input
                     type="text"
@@ -192,7 +203,7 @@ export default function Profile({ uuid }) {
                 )}
               </div>
               <div className="w-full">
-                <dt className="w-20">開発経験</dt>
+                <dt>開発経験{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
                 {isEditing ? (
                   <input
                     type="text"
@@ -223,9 +234,14 @@ export default function Profile({ uuid }) {
         {isEditing && (
           <form
             id="profileForm"
-            className="flex w-full items-center justify-center"
+            className="flex w-full flex-col items-center justify-center gap-2"
             onSubmit={handleSave}
           >
+            {!data.term && (
+              <p className="text-center text-red-500">
+                ※入学期は一度選ぶと修正できません
+              </p>
+            )}
             <button
               type="submit"
               className="rounded border border-runteq-secondary bg-runteq-secondary px-2 py-1 text-white transition-all hover:bg-white hover:text-runteq-secondary"
