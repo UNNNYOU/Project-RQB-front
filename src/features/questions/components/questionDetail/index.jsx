@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { useEffect } from "react";
 import markdownToHtml from "zenn-markdown-html";
-import { Settings } from "@/config";
+import { Routes , Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
 
@@ -48,12 +49,13 @@ const QuestionDetail = ({ uuid }) => {
             </div>
             <div className="mb-8">
               {questionDataTags?.map((tag) => (
-                <span
-                  key={tag.id}
+                <Link
+                  key={tag}
+                  href={`${Routes.questions}?tag=${tag.name}`}
                   className="mr-2 rounded-lg bg-blue-500 px-2.5 py-0.5 text-xs font-semibold text-white"
                 >
                   {tag.name}
-                </span>
+                </Link>
               ))}
             </div>
             <div
