@@ -1,12 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect } from "react";
 import { HiSearch } from "rocketicons/hi";
 import { Routes } from "@/config";
 
 export default function SearchForm({ onMount }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -14,9 +15,14 @@ export default function SearchForm({ onMount }) {
   }, [onMount]);
 
   const handleSearch = (searchQuery) => {
-    router.push(
-      `${Routes.questions}${searchQuery ? `?search=${encodeURIComponent(searchQuery)}` : ""}`,
-    );
+    const currentParams = new URLSearchParams(searchParams);
+    
+    searchQuery ? currentParams.set('search', searchQuery) : currentParams.delete('search');
+
+    const newQuery = currentParams.toString();
+    const newPath = `${Routes.questions}${newQuery ? `?${newQuery}` : ''}`;
+
+    router.push(newPath);
   };
 
   return (
@@ -29,6 +35,7 @@ export default function SearchForm({ onMount }) {
           className="w-full rounded-md border border-gray-400 p-2 pl-10 focus:border-runteq-secondary focus:outline-none"
           placeholder="検索..."
           onChange={(e) => handleSearch(e.target.value)}
+          defaultValue={searchParams.get('search') || ''}
         />
       </div>
     </div>
