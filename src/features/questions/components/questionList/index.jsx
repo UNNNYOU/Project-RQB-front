@@ -12,6 +12,25 @@ export default function QuestionList({ url }) {
   if (!data) return <Loading />;
   if (data.length === 0) return <div>質問がありません</div>;
 
+  const TextLimiter = ({ text }) => {
+    const getCharLimit = () => {
+      if (typeof window === 'undefined') return 70;
+
+      const width = window.innerWidth;
+      if (width < 600) return 10;
+      if (width < 1024) return 20;
+      if (width < 1920) return 40;
+      return 70;
+    };
+    const limit = getCharLimit();
+
+    const limitedText = text.length > limit
+      ? text.slice(0, limit) + '...'
+      : text;
+
+    return <>{limitedText}</>;
+  }
+
   return (
     <>
       <div className="rounded bg-white px-3 md:px-6 md:py-3">
@@ -26,7 +45,7 @@ export default function QuestionList({ url }) {
                 className="transition-all hover:opacity-70"
               >
                 {question.user.avatar &&
-                !question.user.avatar.endsWith("http://localhost:3000") ? (
+                  !question.user.avatar.endsWith("http://localhost:3000") ? (
                   <Image
                     src={question.user.avatar}
                     width={64}
@@ -52,11 +71,11 @@ export default function QuestionList({ url }) {
                   href={Routes.question(question.uuid)}
                   className="transition-all hover:underline hover:opacity-70"
                 >
-                  {question.title}
+                  <TextLimiter text={question.title} />
                 </Link>
               </h2>
               <p className="line-clamp-2 w-full max-w-[700px] truncate text-sm text-gray-600">
-                {question.body.slice(0, 70)}...
+                <TextLimiter text={question.body} />
               </p>
               <div className="mt-2 md:flex md:items-end md:justify-between">
                 <div className="mb-2 flex items-center justify-start gap-1 text-sm">
