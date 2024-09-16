@@ -14,7 +14,7 @@ export default function QuestionList({ url }) {
 
   const TextLimiter = ({ text }) => {
     const getCharLimit = () => {
-      if (typeof window === 'undefined') return 70;
+      if (typeof window === "undefined") return 70;
 
       const width = window.innerWidth;
       if (width < 600) return 10;
@@ -24,12 +24,11 @@ export default function QuestionList({ url }) {
     };
     const limit = getCharLimit();
 
-    const limitedText = text.length > limit
-      ? text.slice(0, limit) + '...'
-      : text;
+    const limitedText =
+      text.length > limit ? text.slice(0, limit) + "..." : text;
 
     return <>{limitedText}</>;
-  }
+  };
 
   return (
     <>
@@ -45,7 +44,7 @@ export default function QuestionList({ url }) {
                 className="transition-all hover:opacity-70"
               >
                 {question.user.avatar &&
-                  !question.user.avatar.endsWith("http://localhost:3000") ? (
+                !question.user.avatar.endsWith("http://localhost:3000") ? (
                   <Image
                     src={question.user.avatar}
                     width={64}
