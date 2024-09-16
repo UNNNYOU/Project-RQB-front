@@ -17,6 +17,7 @@ export default function QuestionTitle() {
             height={64}
             alt={currentUser.name}
             className="object-cover"
+            unoptimized
           />
         ) : (
           <div className="size-16 rounded-full bg-orange-400" />
@@ -35,6 +36,7 @@ export default function QuestionTitle() {
           name="questionTags"
           className="mt-3 w-full rounded-lg border-gray-200 bg-gray-100 px-4 py-1 text-sm outline-none lg:text-base"
         />
+        <span className="text-xs text-red-400">「英数字」 「,」 「.」半角スペースのみ</span>
       </div>
     </div>
   );

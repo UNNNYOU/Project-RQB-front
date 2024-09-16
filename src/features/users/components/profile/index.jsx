@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { FaGithub } from "rocketicons/fa";
 import { useSWRConfig } from "swr";
 import { SelectTerm } from "@/components/form";
@@ -12,7 +12,7 @@ import { currentUserState } from "@/features/auth/api";
 import { useFetchData } from "@/lib";
 
 export default function Profile({ uuid }) {
-  const currentUser = useRecoilValue(currentUserState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [isEditing, setIsEditing] = useState(false);
   const [imageBase64, setImageBase64] = useState("");
   const data = useFetchData(`${Settings.API_URL}/users/${uuid}`);
@@ -53,7 +53,7 @@ export default function Profile({ uuid }) {
     const formData = new FormData(e.target);
     const name = formData.get("name");
     const profile = formData.get("profile");
-    const avatar = imageBase64 ? imageBase64 : data.avatar.url;
+    const avatar = imageBase64 ? imageBase64 : data.avatar;
     const learned_tags = formData.get("learned_tags").split(",");
     const learning_tags = formData.get("learning_tags").split(",");
     const term = data.term ? null : formData.get("term");
@@ -79,7 +79,11 @@ export default function Profile({ uuid }) {
 
     if (response.ok) {
       setIsEditing(false);
+      const data = await response.json();
+      console.log(data);
+      setCurrentUser(data);
       mutate(`${Settings.API_URL}/users/${uuid}`);
+      mutate(`${Settings.API_URL}/auth/me`);
     } else {
       alert("エラーが発生しました");
     }
@@ -173,7 +177,7 @@ export default function Profile({ uuid }) {
           <div>
             <dl className="flex w-full flex-col">
               <div className="mb-2 w-full border-b pb-2">
-                <dt>勉強中</dt>
+                <dt>勉強中{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
                 {isEditing ? (
                   <input
                     type="text"
@@ -199,7 +203,7 @@ export default function Profile({ uuid }) {
                 )}
               </div>
               <div className="w-full">
-                <dt className="w-20">開発経験</dt>
+                <dt>開発経験{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
                 {isEditing ? (
                   <input
                     type="text"

@@ -57,7 +57,7 @@ const QuestionDetail = ({ uuid }) => {
               ))}
             </div>
             <div
-              className="znc h-full p-2"
+              className="znc h-full max-w-[850px] overflow-x-auto p-2"
               dangerouslySetInnerHTML={{
                 __html: html,
               }}
