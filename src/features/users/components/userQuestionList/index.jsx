@@ -46,7 +46,7 @@ export default function UserQuestionList({ uuid }) {
             <button
               type="button"
               onClick={() => handleTabChange(Tabs.question)}
-              className={`w-full rounded-t border-t-2 bg-white py-2 ${currentTab === Tabs.question ? " border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-white"}`}
+              className={`w-full rounded-t border-t-2 bg-white py-2 ${currentTab === Tabs.question ? "border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-gray-400"}`}
             >
               質問
             </button>
@@ -55,7 +55,7 @@ export default function UserQuestionList({ uuid }) {
             <button
               type="button"
               onClick={() => handleTabChange(Tabs.answer)}
-              className={`w-full rounded-t bg-white py-2 ${currentTab === Tabs.answer ? "border-t-2 border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-white"}`}
+              className={`w-full rounded-t border-t-2 bg-white py-2 ${currentTab === Tabs.answer ? "border-runteq-primary font-semibold text-runteq-primary" : "border-gray-400 bg-gray-400 text-gray-400"}`}
             >
               回答
             </button>
