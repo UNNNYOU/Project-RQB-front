@@ -18,6 +18,8 @@ const CommentForm = ({ uuid }) => {
     return <div>Loading...</div>;
   }
 
+  console.log(questionData.status);
+
   const isQuestioner = questionData.user.uuid === currentUser.uuid;
 
   const handleAnswerSubmit = async (e) => {
@@ -73,60 +75,64 @@ const CommentForm = ({ uuid }) => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div
-        className={`relative rounded-lg bg-white p-4 shadow-md ${
-          isQuestioner ? "ml-20" : "mr-20"
-        }`}
-      >
-        <div
-          className={`absolute ${
-            isQuestioner
-              ? "-left-12 top-0 -translate-x-full"
-              : "-right-12 top-0 translate-x-full"
-          } flex size-14 items-center justify-center rounded-full bg-gray-300`}
-        >
-          <span className="text-xs text-gray-600">
-            <Questions.UserAvatar user={currentUser} />
-          </span>
-        </div>
-        <div
-          className={`absolute top-10 ${
-            isQuestioner
-              ? "left-0 -translate-x-full"
-              : "right-0 translate-x-full"
-          } h-6 w-8 bg-white`}
-          style={{
-            clipPath: isQuestioner
-              ? "polygon(0 0, 100% 0, 100% 100%)"
-              : "polygon(0 0, 100% 0, 0 100%)",
-          }}
-        ></div>
-        <form onSubmit={handleAnswerSubmit}>
-          <textarea
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            className="h-32 w-full rounded-lg border bg-gray-100 p-2"
-            placeholder="コメントを入力"
-          ></textarea>
-          <button
-            type="submit"
-            className="mt-2 w-full rounded-lg bg-runteq-primary px-4 py-2 text-white transition-all hover:bg-[#D66200] sm:w-auto"
+    <>
+      { questionData.status === "closed" && (
+        <div className="container mx-auto p-4">
+          <div
+            className={`relative rounded-lg bg-white p-4 shadow-md ${
+              isQuestioner ? "ml-20" : "mr-20"
+            }`}
           >
-            送信する
-          </button>
-          {isQuestioner && questionData.status === "open" && (
-            <button
-              type="button"
-              onClick={handleResolve}
-              className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
+            <div
+              className={`absolute ${
+                isQuestioner
+                  ? "-left-12 top-0 -translate-x-full"
+                  : "-right-12 top-0 translate-x-full"
+              } flex size-14 items-center justify-center rounded-full bg-gray-300`}
             >
-              解決済みにする
-            </button>
-          )}
-        </form>
-      </div>
-    </div>
+              <span className="text-xs text-gray-600">
+                <Questions.UserAvatar user={currentUser} />
+              </span>
+            </div>
+            <div
+              className={`absolute top-10 ${
+                isQuestioner
+                  ? "left-0 -translate-x-full"
+                  : "right-0 translate-x-full"
+              } h-6 w-8 bg-white`}
+              style={{
+                clipPath: isQuestioner
+                  ? "polygon(0 0, 100% 0, 100% 100%)"
+                  : "polygon(0 0, 100% 0, 0 100%)",
+              }}
+            ></div>
+            <form onSubmit={handleAnswerSubmit}>
+              <textarea
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                className="h-32 w-full rounded-lg border bg-gray-100 p-2"
+                placeholder="コメントを入力"
+              ></textarea>
+              <button
+                type="submit"
+                className="mt-2 w-full rounded-lg bg-runteq-primary px-4 py-2 text-white transition-all hover:bg-[#D66200] sm:w-auto"
+              >
+                送信する
+              </button>
+              {isQuestioner && questionData.status === "open" && (
+                <button
+                  type="button"
+                  onClick={handleResolve}
+                  className="ml-0 mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white transition-all hover:bg-gray-600 sm:ml-2 sm:w-auto"
+                >
+                  解決済みにする
+                </button>
+              )}
+            </form>
+          </div>
+        </div>
+      )} 
+    </>
   );
 };
 
