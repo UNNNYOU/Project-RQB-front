@@ -76,7 +76,7 @@ const CommentForm = ({ uuid }) => {
 
   return (
     <>
-      { questionData.status === "closed" && (
+      { questionData.status !== "close" && (
         <div className="container mx-auto p-4">
           <div
             className={`relative rounded-lg bg-white p-4 shadow-md ${
