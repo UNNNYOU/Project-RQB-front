@@ -177,7 +177,14 @@ export default function Profile({ uuid }) {
           <div>
             <dl className="flex w-full flex-col">
               <div className="mb-2 w-full border-b pb-2">
-                <dt>勉強中{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
+                <dt>
+                  勉強中
+                  {isEditing && (
+                    <span className="text-xs text-red-400">
+                      「英数字」「,」「.」半角スペースのみ
+                    </span>
+                  )}
+                </dt>
                 {isEditing ? (
                   <input
                     type="text"
@@ -203,7 +210,14 @@ export default function Profile({ uuid }) {
                 )}
               </div>
               <div className="w-full">
-                <dt>開発経験{isEditing && (<span className="text-xs text-red-400">「英数字」「,」「.」半角スペースのみ</span>)}</dt>
+                <dt>
+                  開発経験
+                  {isEditing && (
+                    <span className="text-xs text-red-400">
+                      「英数字」「,」「.」半角スペースのみ
+                    </span>
+                  )}
+                </dt>
                 {isEditing ? (
                   <input
                     type="text"
