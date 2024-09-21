@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import markdownToHtml from "zenn-markdown-html";
-import { Routes , Settings } from "@/config";
+import { Routes, Settings } from "@/config";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
 

@@ -67,12 +67,16 @@ export default function Home() {
           <strong>runteq overflow</strong>{" "}
           は、アプリ開発における疑問点を掲示板形式で
           <strong>質問</strong>、<strong>回答</strong>、<strong>閲覧</strong>{" "}
-          できるサービスです。<br />
-          質問者は、回答者にわかりやすく質問するスキルを鍛える機会を得られます。<br />
-          また、自分の実装でうまくいかない部分を、過去の質問を参考にして解決することも可能です。<br />
+          できるサービスです。
+          <br />
+          質問者は、回答者にわかりやすく質問するスキルを鍛える機会を得られます。
+          <br />
+          また、自分の実装でうまくいかない部分を、過去の質問を参考にして解決することも可能です。
+          <br />
           さらに、質問に対して自分のわかる範囲で回答することで、
           <strong>Give</strong> の精神が身に付き、
-          誰かに教えることによって自分の記憶の定着にもつながります。<br />
+          誰かに教えることによって自分の記憶の定着にもつながります。
+          <br />
           <strong>質問者</strong>、<strong>回答者</strong>、
           <strong>閲覧者</strong> どの立場からもご利用いただけるサービスです。
           <p>
@@ -123,7 +127,10 @@ export default function Home() {
             </button>
           </Link>
         ) : (
-          <Link href="/login" className="mt-2 w-full rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200] sm:w-auto">
+          <Link
+            href="/login"
+            className="mt-2 w-full rounded-lg bg-runteq-primary px-8 py-4 text-white transition-all hover:bg-[#D66200] sm:w-auto"
+          >
             ログインする
           </Link>
         )}
