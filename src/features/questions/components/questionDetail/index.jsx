@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { mutate } from "swr";
 import markdownToHtml from "zenn-markdown-html";
 import { Routes, Settings } from "@/config";
+import { currentUserState } from "@/features/auth/api";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
-import { currentUserState } from "@/features/auth/api";
-import { useRecoilValue } from "recoil";
 import { resizeTextArea } from "@/utils";
-import { mutate } from "swr";
 
 const QuestionDetail = ({ uuid }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -38,14 +38,14 @@ const QuestionDetail = ({ uuid }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const title = formData.get("title");
-    const tags = formData.get("tags").split(",")
+    const tags = formData.get("tags").split(",");
     const body = formData.get("body");
 
     const updateData = {
       title: title,
       tags: tags,
       body: body,
-    }
+    };
 
     const token = localStorage.getItem("access_token");
     const response = await fetch(`${Settings.API_URL}/questions/${uuid}`, {
@@ -62,12 +62,11 @@ const QuestionDetail = ({ uuid }) => {
       const data = await response.json();
       console.log(data);
       mutate(`${Settings.API_URL}/questions/${uuid}`);
-      mutate(`${Settings.API_URL}/questions/${uuid}/tags`)
+      mutate(`${Settings.API_URL}/questions/${uuid}/tags`);
     } else {
       alert("エラーが発生しました");
     }
   };
-
 
   return (
     <div className="container relative mx-auto p-4">
@@ -91,7 +90,7 @@ const QuestionDetail = ({ uuid }) => {
             ) : (
               <h1 className="text-2xl font-bold">{questionData.title}</h1>
             )}
-            <div className="mb-2 mt-4 flex w-full items-center flex-wrap border-b border-gray-300 pb-2 sm:mt-8">
+            <div className="mb-2 mt-4 flex w-full flex-wrap items-center border-b border-gray-300 pb-2 sm:mt-8">
               <p className="w-full text-sm text-gray-600 sm:w-auto">
                 質問者: {questionData.user.name}
               </p>
@@ -101,15 +100,16 @@ const QuestionDetail = ({ uuid }) => {
               <p className="w-full text-sm text-gray-600 sm:ml-6 sm:w-auto">
                 更新日時: {questionData.updated_at}
               </p>
-              {questionData.status !== "close" && questionData.user.uuid === currentUser.uuid && (
-                <button
-                  type="button"
-                  onClick={handleEdit}
-                  className="rounded border border-slate-700 bg-slate-700 ml-4 px-2 py-1 text-sm text-white transition-all hover:bg-white hover:text-slate-700"
-                >
-                  {isEditing ? "戻る" : "編集"}
-                </button>
-              )}
+              {questionData.status !== "close" &&
+                questionData.user.uuid === currentUser.uuid && (
+                  <button
+                    type="button"
+                    onClick={handleEdit}
+                    className="ml-4 rounded border border-slate-700 bg-slate-700 px-2 py-1 text-sm text-white transition-all hover:bg-white hover:text-slate-700"
+                  >
+                    {isEditing ? "戻る" : "編集"}
+                  </button>
+                )}
             </div>
             <div className="mb-4">
               {isEditing ? (
@@ -177,7 +177,6 @@ const QuestionDetail = ({ uuid }) => {
       </div>
     </div>
   );
-}
+};
 
 export default QuestionDetail;
-
