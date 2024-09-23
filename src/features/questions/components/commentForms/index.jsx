@@ -6,6 +6,7 @@ import { Settings } from "@/config";
 import { currentUserState } from "@/features/auth/api";
 import * as Questions from "@/features/questions/components";
 import useFetchData from "@/lib/useFetchData";
+import { resizeTextArea } from "@/utils";
 
 const CommentForm = ({ uuid }) => {
   const router = useRouter();
@@ -109,8 +110,12 @@ const CommentForm = ({ uuid }) => {
             <form onSubmit={handleAnswerSubmit}>
               <textarea
                 value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-                className="h-32 w-full rounded-lg border bg-gray-100 p-2"
+                rows="5"
+                onChange={(e) => {
+                  resizeTextArea(e);
+                  setAnswer(e.target.value)
+                }}
+                className="w-full rounded-lg border bg-gray-100 p-2"
                 placeholder="コメントを入力"
               ></textarea>
               <button

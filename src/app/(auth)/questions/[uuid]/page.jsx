@@ -10,7 +10,7 @@ export default function QuestionPage({ params }) {
   const { uuid } = params;
 
   return (
-    <article>
+    <article className="max-w-[1000px]">
       <QuestionDetail uuid={uuid} />
       <CommentsSection uuid={uuid} />
       <CommentForm uuid={uuid} />
